@@ -8,7 +8,12 @@ const BlogPage = () => {
   const [blog, setBlog] = useState();
   const { blogId } = useParams();
 
-  useEffect(() => {});
+  useEffect(() => {
+    api
+      .get(`/blogs/${blogId}`)
+      .then((response) => setBlog(response))
+      .catch((err) => console.log(err));
+  }, [blogId]);
 
   return (
     <>
@@ -24,3 +29,5 @@ const BlogPage = () => {
     </>
   );
 };
+
+export default BlogPage;

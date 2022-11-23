@@ -11,11 +11,11 @@ export default function ProductCard({ blog }) {
         text="dark"
         style={{ position: 'relative', height: '100%' }}
       >
-        <Card.Img
+        {/* <Card.Img
           height={150}
-          src={product.productImage}
+          src={blog.img}
           style={{ objectFit: 'cover' }}
-        />
+        /> */}
         <Card.Body>
           <Card.Title as="h6" style={{ color: 'info' }}>
             <Row>

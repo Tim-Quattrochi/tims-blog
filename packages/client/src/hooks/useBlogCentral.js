@@ -1,4 +1,4 @@
-const { createContext, useReducer } = require('react');
+const { createContext, useReducer, useContext } = require('react');
 
 const initialState = {
   blogTitle: 'Blog Central',
@@ -23,4 +23,8 @@ export const BlogCentralProvider = ({ children }) => {
       {children}
     </blogCentralContext.Provider>
   );
+};
+
+const useBlogCentral = () => {
+  const { state, dispatch } = useContext(blogCentralContext);
 };

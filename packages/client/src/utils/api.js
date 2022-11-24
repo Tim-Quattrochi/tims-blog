@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const getUserToken = () => {
-  const savedUser = JSON.parse(localStorage.getItem('kickoff_user'));
+  const savedUser = JSON.parse(localStorage.getItem('blogUser'));
   return savedUser ? savedUser.token : '';
 };
 

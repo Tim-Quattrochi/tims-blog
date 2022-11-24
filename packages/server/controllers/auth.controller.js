@@ -8,9 +8,9 @@ const JWT_SECRET = keys.jwt.secret;
 
 export const signUp = async (req, res) => {
   try {
-    const { email, password, confirmPassword } = req.body;
+    const { email, password, confirmPassword, name } = req.body;
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword || !name) {
       return res.status(422).json({ error: 'All fields required.' });
     }
 
@@ -30,7 +30,7 @@ export const signUp = async (req, res) => {
 
     const passwordHash = bcrypt.hashSync(password, 12);
 
-    const newUser = await User.create({ email, passwordHash });
+    const newUser = await User.create({ name, email, passwordHash });
 
     const claims = generateTokenClaims(newUser);
 

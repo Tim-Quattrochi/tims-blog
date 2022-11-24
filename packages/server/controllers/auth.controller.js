@@ -36,7 +36,7 @@ export const signUp = async (req, res) => {
 
     const token = jwt.sign(claims, JWT_SECRET);
 
-    res.json({ token, email });
+    res.json({ token, email, name });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Something went wrong.' });

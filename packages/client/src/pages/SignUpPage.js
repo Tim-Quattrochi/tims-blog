@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 
 const initialState = {
+  name: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -38,6 +39,15 @@ const SignUpPage = () => {
         style={{ width: '50%', maxWidth: '400px' }}
         onSubmit={handleSubmit}
       >
+        <Form.Group className="mb-3">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            value={data.name}
+            onChange={handleChange}
+          />
+        </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Email</Form.Label>
           <Form.Control

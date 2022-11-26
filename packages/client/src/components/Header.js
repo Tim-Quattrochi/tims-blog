@@ -1,14 +1,21 @@
-import { Nav, Navbar, Button } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useProvideAuth } from '../hooks/AuthProvider';
 
 const Header = () => {
   const [returningUser, setReturningUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const auth = useProvideAuth();
+
+  const {
+    state: { isAuthenticated },
+  } = useProvideAuth();
+
   const logOut = () => {
-    localStorage.removeItem('blogUser');
     setIsLoggedIn(false);
+    auth.signOut();
   };
 
   useEffect(() => {
@@ -25,7 +32,7 @@ const Header = () => {
   return (
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand>
-        {returningUser ? `${returningUser}'s Blog` : 'Guest'}
+        {isAuthenticated ? `${returningUser}'s Blog` : 'Guest'}
       </Navbar.Brand>
       <Nav>
         <Nav.Link as={Link} to="/blogs">
@@ -34,8 +41,8 @@ const Header = () => {
         <Nav.Link as={Link} to="/blogs/create">
           Create Blog
         </Nav.Link>
-        {isLoggedIn ? (
-          <Nav.Link onClick={logOut} as={Link} to="/signin">
+        {isAuthenticated ? (
+          <Nav.Link onClick={logOut} as={Link} href="/signin">
             Log Out
           </Nav.Link>
         ) : (

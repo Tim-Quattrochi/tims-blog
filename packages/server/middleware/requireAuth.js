@@ -8,11 +8,14 @@ const JWT_SECRET = keys.jwt.secret;
 export default async function requireAuth(req, res, next) {
   const authorization = req.get('authorization');
 
+  console.log(authorization);
+
   if (!authorization) {
     return res.status(401).json({ error: 'You must be logged in.' });
   }
 
   const token = authorization.replace('Bearer ', '');
+  console.log(token);
 
   jwt.verify(token, JWT_SECRET, (err, payload) => {
     if (err) {

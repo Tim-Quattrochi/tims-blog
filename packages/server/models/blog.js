@@ -2,11 +2,6 @@ import mongoose, { Schema, model } from 'mongoose';
 
 const blogSchema = new Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
     title: {
       type: String,
       required: true,
@@ -18,6 +13,11 @@ const blogSchema = new Schema(
       required: true,
       minLength: 15,
       maxLength: 500,
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
     },
     posts: [
       {

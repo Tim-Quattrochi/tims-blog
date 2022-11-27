@@ -8,9 +8,12 @@ const JWT_SECRET = keys.jwt.secret;
 
 export const signUp = async (req, res) => {
   try {
-    const { email, password, confirmPassword, name } = req.body;
+    //the order of these must match the order they come from in the front
+    const { name, email, password, confirmPassword } = req.body;
+    console.log(req.body);
+    console.log(confirmPassword);
 
-    if (!email || !password || !confirmPassword || !name) {
+    if (!name || !email || !password || !confirmPassword) {
       return res.status(422).json({ error: 'All fields required.' });
     }
 
@@ -36,7 +39,9 @@ export const signUp = async (req, res) => {
 
     const token = jwt.sign(claims, JWT_SECRET);
 
-    res.json({ token, email, name });
+    res.cookie('blogUser', token, { httpOnly: true });
+
+    res.json({ token, user: { uid: newUser._id, email, name } });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Something went wrong.' });
@@ -74,7 +79,12 @@ export const signIn = async (req, res) => {
 
     const token = jwt.sign(claims, JWT_SECRET);
 
-    res.json({ token, email });
+    res.cookie('blogUser', token, { httpOnly: true });
+
+    res.json({
+      token,
+      user: { uid: existingUser._id, name: existingUser.name, email },
+    });
   } catch (error) {
     res.status(500).json({ error: 'Something went wrong.' });
   }

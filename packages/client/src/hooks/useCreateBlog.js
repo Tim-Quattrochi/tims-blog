@@ -92,6 +92,7 @@ const useCreateBlog = () => {
 
   const reset = () => {
     localStorage.removeItem('blog_post_progress');
+
     dispatch({ type: 'HANDLE_RESET' });
   };
 

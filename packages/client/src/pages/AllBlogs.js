@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import BlogPostForm from '../components/BlogPostForm';
 import api from '../utils/api';
 import BlogCard from '../components/BlogCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const AllBlogs = () => {
   const [blog, setBlog] = useState();
@@ -14,7 +15,7 @@ const AllBlogs = () => {
       .then((response) => setBlog(response))
       .catch((err) => console.log(err));
   }, []);
-  console.log(blog);
+
   return (
     <>
       {blog ? (
@@ -26,7 +27,7 @@ const AllBlogs = () => {
           {blog && blog.isCreator && <BlogPostForm />} */}
         </Container>
       ) : (
-        <p>Loading...</p>
+        <LoadingSpinner />
       )}
     </>
   );

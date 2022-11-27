@@ -1,30 +1,26 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
-import useBlogPostForm from '../hooks/useBlogPostForm';
+import useCreateBlog from '../hooks/useCreateBlog';
 
 const BlogPostForm = () => {
   const {
     state,
-    handleChange,
-    handleSubmit,
-    saveProgress,
+    handleSubmitBlog,
+    handleChangeDraft,
     deleteDraft,
-  } = useBlogPostForm();
+
+    saveProgress,
+  } = useCreateBlog();
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <Button type="button" variant="info" onClick={saveProgress}>
-        Save Draft
-      </Button>
-      <Button type="button" variant="danger" onClick={deleteDraft}>
-        Delete Draft
-      </Button>
+    <Form onSubmit={handleSubmitBlog}>
       <Form.Group className="mb-3">
         <Form.Label>Title</Form.Label>
         <Form.Control
           type="text"
           name="title"
           value={state.title}
-          onChange={handleChange}
+          onChange={handleChangeDraft}
         />
       </Form.Group>
       <Form.Group className="mb-3">
@@ -34,9 +30,28 @@ const BlogPostForm = () => {
           rows="10"
           name="content"
           value={state.content}
-          onChange={handleChange}
+          onChange={handleChangeDraft}
         />
       </Form.Group>
+      <Button
+        type="button"
+        className="m-3"
+        variant="success"
+        onClick={handleSubmitBlog}
+      >
+        Post Blog
+      </Button>
+      <Button type="button" variant="info" onClick={saveProgress}>
+        Save Draft
+      </Button>
+      <Button
+        type="button"
+        className="m-3"
+        variant="danger"
+        onClick={deleteDraft}
+      >
+        Delete Draft
+      </Button>
     </Form>
   );
 };

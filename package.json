@@ -1,0 +1,25 @@
+{
+  "name": "Tim's Blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm start --workspace=server",
+    "client": "npm start --workspace=client",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/server",
+    "packages/client"
+  ],
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3",
+    "react-toastify": "^9.1.1"
+  }
+}

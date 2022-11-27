@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import { setAuthToken } from '../utils/api';
+import { useProvideAuth } from '../hooks/AuthProvider';
 
 const initialState = {
   name: '',
@@ -12,6 +14,7 @@ const initialState = {
 
 const SignUpPage = () => {
   const [data, setData] = useState(initialState);
+  const auth = useProvideAuth();
 
   const navigate = useNavigate();
 
@@ -22,14 +25,27 @@ const SignUpPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    api.post('/auth/signup', data).then((response) => {
+    const { email, password, confirmPassword, name } = data;
+    try {
+      console.log(data);
+      const res = await auth.signUp(
+        //the order of these must match the back end
+        email,
+        name,
+        password,
+        confirmPassword
+      );
       // store the authenticated user in state
-      localStorage.setItem('blogUser', JSON.stringify(response));
+      setAuthToken(res.token);
+
+      localStorage.setItem('blogUser', JSON.stringify(res.user));
       navigate('/blogs');
-    });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Container className="d-flex justify-content-center align-items-center flex-column">
@@ -37,7 +53,7 @@ const SignUpPage = () => {
       <Form
         className="row"
         style={{ width: '50%', maxWidth: '400px' }}
-        onSubmit={handleSubmit}
+        onSubmit={handleSignup}
       >
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>

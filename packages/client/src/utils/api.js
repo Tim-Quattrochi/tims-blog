@@ -6,6 +6,9 @@ const api = axios.create({
 
 const getUserToken = () => {
   const savedUser = JSON.parse(localStorage.getItem('blogUser'));
+  if (savedUser === undefined) {
+    return;
+  }
   return savedUser ? savedUser.token : '';
 };
 
@@ -18,7 +21,9 @@ api.interceptors.request.use(
 
     if (token) {
       req.headers['Authorization'] = `Bearer ${token}`;
-    }
+    } // I want to know why having this else makes it so my user is not authorized, but works with it commented out. //else {
+    //   delete api.defaults.headers.common['Authorization'];
+    // }
     return req;
   },
   (err) => {
@@ -28,8 +33,10 @@ api.interceptors.request.use(
 
 export const setAuthToken = (token) => {
   if (token) {
+    //applying token
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {
+    //deleting the token from header
     delete api.defaults.headers.common['Authorization'];
   }
 };

@@ -9,8 +9,6 @@ module.exports = {
     url: process.env.API_URL ? `/${process.env.API_URL}` : '/api',
   },
   jwt: {
-    secret:
-      process.env.JWT_SECRET ||
-      'peterpiperpickedapeckofpickledpeppers',
+    secret: process.env.JWT_SECRET || 'what33wutcdse',
   },
 };

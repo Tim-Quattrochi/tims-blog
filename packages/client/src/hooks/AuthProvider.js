@@ -83,6 +83,7 @@ export function useProvideAuth() {
         email: email,
         name: name,
         password: password,
+        confirmPassword: confirmPassword,
       });
       return await signIn(email, password);
     } catch (error) {

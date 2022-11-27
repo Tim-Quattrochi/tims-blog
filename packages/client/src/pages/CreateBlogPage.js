@@ -2,12 +2,17 @@ import { Button, Container, Form } from 'react-bootstrap';
 import useCreateBlog from '../hooks/useCreateBlog';
 
 const CreateBlogPage = () => {
-  const { state, handleChange, handleSubmit, reset } =
-    useCreateBlog();
+  const {
+    state,
+    handleChange,
+    handleSubmitBlog,
+    reset,
+    saveProgress,
+  } = useCreateBlog();
   return (
     <Container>
       <h1>Create a Blog</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmitBlog}>
         <Form.Group className="mb-3">
           <Form.Label>Blog Title</Form.Label>
           <Form.Control
@@ -28,11 +33,24 @@ const CreateBlogPage = () => {
           />
         </Form.Group>
         <Form.Group>
-          <Button type="button" variant="secondary" onClick={reset}>
-            Reset
-          </Button>
           <Button type="submit" variant="primary">
             Submit
+          </Button>
+          <Button
+            className="m-2"
+            type="button"
+            variant="secondary"
+            onClick={saveProgress}
+          >
+            Save Draft
+          </Button>
+          <Button
+            className="m-2"
+            type="button"
+            variant="secondary"
+            onClick={reset}
+          >
+            Reset
           </Button>
         </Form.Group>
       </Form>

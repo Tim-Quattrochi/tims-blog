@@ -6,6 +6,7 @@ import api from '../utils/api';
 import BlogCard from '../components/BlogCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import BlogPostForm from '../components/BlogPostForm';
+import Posts from '../components/Posts';
 
 const BlogPage = () => {
   const [blog, setBlog] = useState();

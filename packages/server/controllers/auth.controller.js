@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import keys from '../configs/keys';
 import { generateTokenClaims } from '../utils';
 
-const JWT_SECRET = keys.jwt.secret;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const signUp = async (req, res) => {
   try {

@@ -8,9 +8,9 @@ import keys from './configs/keys';
 import apiRouter from './routes';
 import cookieParser from 'cookie-parser';
 
-const DB_URL = keys.db.url;
+const DB_URL = process.env.DB_URL;
 const API_URL = keys.api.url;
-const PORT = keys.api.port;
+const PORT = process.env.PORT;
 
 mongoose
   .connect(DB_URL, {

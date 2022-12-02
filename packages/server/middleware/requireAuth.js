@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import keys from '../configs/keys';
 import { User } from '../models';
 
-const JWT_SECRET = keys.jwt.secret;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export default async function requireAuth(req, res, next) {
   const authorization = req.get('authorization');

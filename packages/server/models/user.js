@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { mongoose, Schema, model } from 'mongoose';
 
 const userSchema = new Schema(
   {
@@ -8,6 +8,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
+      unique: true,
       required: [true, 'Email is required.'],
       minLength: [5, 'Email must be at least 5 characters long.'],
     },
@@ -15,6 +16,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Password hash is required.'],
     },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'posts',
+      },
+    ],
   },
   { timestamps: true }
 );

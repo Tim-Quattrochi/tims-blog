@@ -12,7 +12,7 @@ const blogSchema = new Schema(
       type: String,
       required: true,
       minLength: 15,
-      maxLength: 500,
+      maxLength: 1000,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +31,10 @@ const blogSchema = new Schema(
           type: String,
           required: true,
           minLength: 20,
+        },
+        author: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
         },
         createdAt: {
           type: Date,

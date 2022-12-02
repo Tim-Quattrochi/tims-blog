@@ -1,7 +1,13 @@
 import { Blog, User } from '../models';
 
 export const getAllBlogs = async (req, res) => {
-  const populateQuery = [{ path: 'author', select: 'name' }];
+  const populateQuery = [
+    { path: 'author', select: 'name' },
+    {
+      path: 'posts',
+      select: ['Name'],
+    },
+  ];
   const blogs = await Blog.find({})
     .sort({ createdAt: 'desc' })
     .populate(populateQuery);
@@ -10,19 +16,24 @@ export const getAllBlogs = async (req, res) => {
 };
 
 export const getBlogById = async (req, res) => {
-  const populateQuery = [{ path: 'author', select: 'name' }];
+  const populateQuery = [
+    { path: 'author', select: 'name' },
+    { path: 'posts', select: ['name'] },
+  ];
   const { id } = req.params;
   const blog = await Blog.findById(id).populate(populateQuery);
-
-  console.log(req.cookies.blogOwned === id);
 
   res.json({ isCreator: id === req.cookies.blogOwned, blog });
 };
 
 export const createBlog = async (req, res) => {
-  console.log('t');
+  console.log('/createBlog');
   try {
     const { title, description } = req.body;
+    console.log(req.user.id);
+    const populateQuery = [
+      { path: Blog.posts.author, select: ['name'] },
+    ];
 
     const user = await User.findById(req.user.id);
     console.log(user);
@@ -40,7 +51,7 @@ export const createBlog = async (req, res) => {
       title,
       description,
       author: req.user.id,
-    });
+    }).populateQuery(populateQuery);
 
     res.cookie('blogOwned', [newBlog._id], { httpOnly: true });
 
@@ -52,6 +63,7 @@ export const createBlog = async (req, res) => {
 };
 
 export const createBlogPost = async (req, res) => {
+  console.log('createBlogPost');
   console.log(req);
   try {
     const { id } = req.params;

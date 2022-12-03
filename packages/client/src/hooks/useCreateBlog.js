@@ -31,6 +31,9 @@ const reducer = (state, action) => {
       return newState;
     case 'HANDLE_RESET_DRAFT':
       return initialState;
+    case 'DELETE_BLOG':
+      newState.isSubmitting = action.payload;
+      return newState;
     default:
       return newState;
   }
@@ -90,6 +93,25 @@ const useCreateBlog = () => {
       .catch((err) => console.log(err));
   };
 
+  const deleteBlog = (e, id) => {
+    e.preventDefault();
+    dispatch({
+      type: 'SET_IS_SUBMITTING',
+      payload: true,
+    });
+
+    const { title, description } = state;
+
+    api
+      .delete(`/blogs/${id}`, { title, description })
+      .then((response) => {
+        console.log(response);
+        reset();
+        navigate(`/blogs/`);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const reset = () => {
     localStorage.removeItem('blog_post_progress');
 
@@ -102,6 +124,7 @@ const useCreateBlog = () => {
     handleSubmitBlog,
     reset,
     saveProgress,
+    deleteBlog,
   };
 };
 

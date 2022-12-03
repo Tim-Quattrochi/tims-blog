@@ -6,8 +6,10 @@ import formatDate from '../utils/formatDate';
 export default function Posts({ blog }) {
   const dateStr = blog.createdAt;
   console.log(blog);
-
+  console.log(blog);
   const { blogId } = useParams();
+
+  console.log(blogId);
 
   return (
     <Container>
@@ -21,7 +23,10 @@ export default function Posts({ blog }) {
               Card Subtitle
             </Card.Subtitle>
             <Card.Text>{blog.content}</Card.Text>
-            <Card.Text> on {formatDate(dateStr)}</Card.Text>
+            <Card.Text>
+              {' '}
+              on {formatDate(dateStr)} by {}
+            </Card.Text>
           </Card.Body>
         </Card>
       </CardGroup>

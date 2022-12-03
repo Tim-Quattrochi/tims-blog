@@ -19,7 +19,7 @@ const userSchema = new Schema(
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'posts',
+        ref: 'Blog',
       },
     ],
   },

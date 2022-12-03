@@ -6,7 +6,7 @@ const blogSchema = new Schema(
       type: String,
       required: true,
       minLength: 5,
-      maxLength: 50,
+      maxLength: 75,
     },
     description: {
       type: String,
@@ -16,7 +16,6 @@ const blogSchema = new Schema(
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: 'User',
     },
     posts: [
@@ -35,14 +34,6 @@ const blogSchema = new Schema(
         author: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-        updatedAt: {
-          type: Date,
-          default: Date.now,
         },
       },
     ],

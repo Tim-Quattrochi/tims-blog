@@ -70,7 +70,7 @@ export function useProvideAuth() {
     } catch (error) {
       console.log(error);
       if (error.response) {
-        throw new Error(error.response.date.error);
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }
@@ -89,7 +89,7 @@ export function useProvideAuth() {
     } catch (error) {
       console.log(error);
       if (error.response) {
-        throw new Error(error.response.date.error);
+        throw new Error(error.response.data.error);
       } else {
         throw error;
       }

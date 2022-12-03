@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Card, CardGroup, Container } from 'react-bootstrap';
+import { Card, CardGroup, Container, Button } from 'react-bootstrap';
 import formatDate from '../utils/formatDate';
 import Posts from './Posts';
+import uuid from 'react-uuid';
+import useCreateBlog from '../hooks/useCreateBlog';
 
 export default function ProductCard({ blog }) {
+  const { deleteBlog } = useCreateBlog();
   const dateStr = blog.createdAt;
-  console.log(blog);
 
   const { blogId } = useParams();
 
@@ -27,11 +29,20 @@ export default function ProductCard({ blog }) {
               posted by {blog.author.name} on {formatDate(dateStr)}
             </Card.Text>
           </Card.Body>
+          <Button
+            onClick={(e) => {
+              deleteBlog(e, blogId);
+            }}
+          >
+            Delete
+          </Button>
         </Card>
       </CardGroup>
       {blogId
         ? blog.posts
-          ? blog.posts.map((post) => <Posts blog={post} />)
+          ? blog.posts.map((post) => (
+              <Posts key={uuid()} blog={post} />
+            ))
           : ''
         : ''}
     </Container>

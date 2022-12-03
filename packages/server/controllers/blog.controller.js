@@ -9,6 +9,7 @@ export const getAllBlogs = async (req, res) => {
     },
   ];
   const blogs = await Blog.find({})
+
     .sort({ createdAt: 'desc' })
     .populate(populateQuery);
 
@@ -32,7 +33,11 @@ export const createBlog = async (req, res) => {
     const { title, description } = req.body;
     console.log(req.user.id);
     const populateQuery = [
-      { path: Blog.posts.author, select: ['name'] },
+      { path: 'author', select: 'name' },
+      {
+        path: 'posts',
+        select: ['Name'],
+      },
     ];
 
     const user = await User.findById(req.user.id);
@@ -51,7 +56,7 @@ export const createBlog = async (req, res) => {
       title,
       description,
       author: req.user.id,
-    }).populateQuery(populateQuery);
+    });
 
     res.cookie('blogOwned', [newBlog._id], { httpOnly: true });
 
@@ -72,6 +77,28 @@ export const createBlogPost = async (req, res) => {
     });
 
     res.json(blog);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const deleteBlogPost = async (req, res) => {
+  const { id } = req.params;
+  console.log(req.user.id);
+
+  try {
+    console.log(req.user.id);
+    const blog = await Blog.findById(id);
+
+    console.log(blog.author._id.toString());
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    if (blog.author._id.toString() === req.user.id.toString()) {
+      await blog.remove();
+      return res.json({ success: 'Blog successfully deleted.' });
+    }
   } catch (error) {
     res.status(500).json({ error: error });
   }

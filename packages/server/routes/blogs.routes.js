@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
   createBlog,
   createBlogPost,
+  deleteBlogPost,
   getAllBlogs,
   getBlogById,
 } from '../controllers/blog.controller';
@@ -14,6 +15,7 @@ blogsRouter.route('/').get(getAllBlogs).post(requireAuth, createBlog);
 blogsRouter
   .route('/:id')
   .get(getBlogById)
-  .post(requireAuth, createBlogPost);
+  .post(requireAuth, createBlogPost)
+  .delete(requireAuth, deleteBlogPost);
 
 export default blogsRouter;

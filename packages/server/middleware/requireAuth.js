@@ -6,35 +6,30 @@ import { User } from '../models';
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export default async function requireAuth(req, res, next) {
-  const authorization = req.get('authorization');
+  let token;
 
-  console.log(authorization);
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    try {
+      // get token from header
+      token = req.headers.authorization.split(' ')[1];
 
-  if (!authorization) {
-    return res.status(401).json({ error: 'You must be logged in.' });
+      //verify token
+      const decoded = jwt.verify(token, JWT_SECRET);
+      console.log(decoded);
+
+      //get user from token
+      req.user = await User.findById(decoded.sub).select('-password');
+
+      next();
+    } catch (error) {
+      console.log(error);
+      res.status(401).json({ error: 'Not authorized' });
+    }
   }
-
-  const token = authorization.replace('Bearer ', '');
-  console.log(token);
-
-  jwt.verify(token, JWT_SECRET, (err, payload) => {
-    if (err) {
-      return res.status(401).json({ error: 'Invalid user/pass' });
-    }
-
-    const { sub, exp } = payload;
-
-    if (exp < new Date()) {
-      return res.status(401).json({ error: 'Token has expired.' });
-    }
-
-    User.findById(sub)
-      .then((user) => {
-        req.user = user;
-        next();
-      })
-      .catch((err) => {
-        res.status(500).json({ error: 'Something went wrong.' });
-      });
-  });
+  if (!token) {
+    res.status(401).json({ error: 'Not authorized.' });
+  }
 }

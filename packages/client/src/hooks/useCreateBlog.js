@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 const { useReducer, useEffect } = require('react');
 const { useNavigate } = require('react-router-dom');
 const { default: api } = require('../utils/api');
@@ -105,11 +106,15 @@ const useCreateBlog = () => {
     api
       .delete(`/blogs/${id}`, { title, description })
       .then((response) => {
+        toast.success('Blog post deleted successfully.');
         console.log(response);
         reset();
         navigate(`/blogs/`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast.error('Something went wrong.');
+      });
   };
 
   const reset = () => {

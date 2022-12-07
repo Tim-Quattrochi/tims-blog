@@ -7,6 +7,7 @@ import uuid from 'react-uuid';
 import useCreateBlog from '../hooks/useCreateBlog';
 
 export default function ProductCard({ blog }) {
+  console.log(blog);
   const { deleteBlog } = useCreateBlog();
   const dateStr = blog.createdAt;
 
@@ -29,13 +30,6 @@ export default function ProductCard({ blog }) {
               posted by {blog.author.name} on {formatDate(dateStr)}
             </Card.Text>
           </Card.Body>
-          <Button
-            onClick={(e) => {
-              deleteBlog(e, blogId);
-            }}
-          >
-            Delete
-          </Button>
         </Card>
       </CardGroup>
       {blogId

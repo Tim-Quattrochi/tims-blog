@@ -22,16 +22,20 @@ export const getBlogById = async (req, res) => {
     { path: 'posts', select: ['name'] },
   ];
   const { id } = req.params;
+
   const blog = await Blog.findById(id).populate(populateQuery);
 
-  res.json({ isCreator: id === req.cookies.blogOwned, blog });
+  res.json({
+    isCreator: id === req.cookies.blogOwned.toString(),
+    blog,
+  });
 };
 
 export const createBlog = async (req, res) => {
   console.log('/createBlog');
   try {
     const { title, description } = req.body;
-    console.log(req.user.id);
+
     const populateQuery = [
       { path: 'author', select: 'name' },
       {
@@ -41,7 +45,6 @@ export const createBlog = async (req, res) => {
     ];
 
     const user = await User.findById(req.user.id);
-    console.log(user);
 
     if (!user) {
       return res.status(401).json({ error: 'not authorized' });
@@ -98,6 +101,10 @@ export const deleteBlogPost = async (req, res) => {
     if (blog.author._id.toString() === req.user.id.toString()) {
       await blog.remove();
       return res.json({ success: 'Blog successfully deleted.' });
+    } else {
+      return res.status(401).json({
+        error: 'Not authorized to delete a non owned blog.',
+      });
     }
   } catch (error) {
     res.status(500).json({ error: error });

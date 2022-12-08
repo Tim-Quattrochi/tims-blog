@@ -57,7 +57,7 @@ const BlogPage = () => {
       ) : (
         <LoadingSpinner />
       )}
-    </>
+    </> 
   );
 };
 

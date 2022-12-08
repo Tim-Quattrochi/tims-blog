@@ -4,11 +4,10 @@ import { Card, CardGroup, Container, Button } from 'react-bootstrap';
 import formatDate from '../utils/formatDate';
 import Posts from './Posts';
 import uuid from 'react-uuid';
-import useCreateBlog from '../hooks/useCreateBlog';
 
 export default function ProductCard({ blog }) {
   console.log(blog);
-  const { deleteBlog } = useCreateBlog();
+
   const dateStr = blog.createdAt;
 
   const { blogId } = useParams();

@@ -24,16 +24,14 @@ const reducer = (state, action) => {
       return action.payload;
     case 'HANDLE_CHANGE_DRAFT':
       newState[action.payload.name] = action.payload.value;
-      //local storage to save every key event; optional
-      //   localStorage.setItem(
-      //     'blog_post_progress',
-      //     JSON.stringify(newState)
-      //   );
       return newState;
     case 'HANDLE_RESET_DRAFT':
       return initialState;
     case 'DELETE_BLOG':
       newState.isSubmitting = action.payload;
+      return newState;
+    case 'EDIT_BLOG':
+      newState[action.payload.name] = action.payload.value;
       return newState;
     default:
       return newState;
@@ -117,6 +115,30 @@ const useCreateBlog = () => {
       });
   };
 
+  const { title, description } = state;
+
+  const editBlog = (e, id) => {
+    console.log('fired');
+    e.preventDefault();
+    dispatch({
+      type: 'SET_IS_SUBMITTING',
+      payload: true,
+    });
+
+    api
+      .put(`/blogs/${id}`, { title, description })
+      .then((response) => {
+        toast.success('Blog post edited successfully.');
+        console.log(response);
+        reset();
+        navigate(`/blogs/${id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('Something went wrong.');
+      });
+  };
+
   const reset = () => {
     localStorage.removeItem('blog_post_progress');
 
@@ -130,6 +152,7 @@ const useCreateBlog = () => {
     reset,
     saveProgress,
     deleteBlog,
+    editBlog,
   };
 };
 

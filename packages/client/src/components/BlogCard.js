@@ -7,7 +7,6 @@ import uuid from 'react-uuid';
 import useCreateBlog from '../hooks/useCreateBlog';
 
 export default function ProductCard({ blog }) {
-  console.log(blog);
   const { deleteBlog } = useCreateBlog();
   const dateStr = blog.createdAt;
 

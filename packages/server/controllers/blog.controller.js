@@ -26,7 +26,7 @@ export const getBlogById = async (req, res) => {
   const blog = await Blog.findById(id).populate(populateQuery);
 
   res.json({
-    isCreator: id === req.cookies.blogOwned.toString(),
+    isCreator: id === req.cookies.blogOwned?.toString(),
     blog,
   });
 };
@@ -106,6 +106,23 @@ export const deleteBlogPost = async (req, res) => {
         error: 'Not authorized to delete a non owned blog.',
       });
     }
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const editBlogPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedBlog);
   } catch (error) {
     res.status(500).json({ error: error });
   }

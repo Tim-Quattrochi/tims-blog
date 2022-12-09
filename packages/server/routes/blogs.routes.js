@@ -5,6 +5,7 @@ import {
   deleteBlogPost,
   getAllBlogs,
   getBlogById,
+  editBlogPost,
 } from '../controllers/blog.controller';
 import { requireAuth } from '../middleware';
 
@@ -16,6 +17,7 @@ blogsRouter
   .route('/:id')
   .get(getBlogById)
   .post(requireAuth, createBlogPost)
-  .delete(requireAuth, deleteBlogPost);
+  .delete(requireAuth, deleteBlogPost)
+  .put(requireAuth, editBlogPost);
 
 export default blogsRouter;

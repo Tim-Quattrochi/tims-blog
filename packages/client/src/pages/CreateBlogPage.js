@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import useCreateBlog from '../hooks/useCreateBlog';
 
@@ -9,6 +10,8 @@ const CreateBlogPage = () => {
     reset,
     saveProgress,
   } = useCreateBlog();
+
+ 
   return (
     <Container>
       <h1>Create a Blog</h1>

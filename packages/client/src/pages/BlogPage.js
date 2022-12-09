@@ -9,17 +9,21 @@ import BlogPostForm from '../components/BlogPostForm';
 import Posts from '../components/Posts';
 import formatDate from '../utils/formatDate';
 import useCreateBlog from '../hooks/useCreateBlog';
+import EditBlog from './EditBlog';
 
 const BlogPage = () => {
   const [blog, setBlog] = useState();
   const { blogId } = useParams();
   const { deleteBlog } = useCreateBlog();
+  const [editBlog, setEditBlog] = useState();
   const [isCreator, setIsCreator] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     api
       .get(`/blogs/${blogId}`)
       .then((response) => {
+        setEditBlog(response.blog);
         setBlog(response);
         setIsCreator(response.isCreator);
       })
@@ -29,8 +33,13 @@ const BlogPage = () => {
 
   console.log(isCreator);
 
-  //   const date = parseISO(blog.createdAt);
-  console.log(blog);
+  const handleClick = () => {
+    setIsEdit((current) => !current);
+  };
+
+  const handleEdit = () => {
+    return <EditBlog />;
+  };
 
   return (
     <>
@@ -47,6 +56,8 @@ const BlogPage = () => {
               >
                 Delete
               </Button>
+              <Button onClick={handleClick}>Edit</Button>
+              {isEdit && <EditBlog id={blogId} blog={blog.blog} />}
             </div>
           ) : (
             ''

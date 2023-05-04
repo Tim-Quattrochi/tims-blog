@@ -1,29 +1,32 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: "http://localhost:3001/api",
 });
 
 const getUserToken = () => {
-  const savedUser = JSON.parse(localStorage.getItem('blogUser'));
-  if (savedUser === undefined) {
+  const savedUserUserToken = JSON.parse(
+    localStorage.getItem("blogUserToken")
+  );
+  console.log(savedUserUserToken);
+  if (savedUserUserToken === undefined) {
     return;
   }
-  return savedUser ? savedUser.token : '';
+  return savedUserUserToken ? savedUserUserToken : "";
 };
 
-api.defaults.headers.post['Content-Type'] = 'application/json';
-api.defaults.headers.common['Authorization'] = getUserToken();
+api.defaults.headers.post["Content-Type"] = "application/json";
+api.defaults.headers.common["Authorization"] = getUserToken();
 
 api.interceptors.request.use(
   (req) => {
     const token = getUserToken();
 
     if (token) {
-      req.headers['Authorization'] = `Bearer ${token}`;
-    } // I want to know why having this else makes it so my user is not authorized, but works with it commented out. //else {
-    //   delete api.defaults.headers.common['Authorization'];
-    // }
+      req.headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete api.defaults.headers.common["Authorization"];
+    }
     return req;
   },
   (err) => {
@@ -34,10 +37,10 @@ api.interceptors.request.use(
 export const setAuthToken = (token) => {
   if (token) {
     //applying token
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
     //deleting the token from header
-    delete api.defaults.headers.common['Authorization'];
+    delete api.defaults.headers.common["Authorization"];
   }
 };
 

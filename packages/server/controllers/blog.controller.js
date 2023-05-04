@@ -1,16 +1,16 @@
-import { Blog, User } from '../models';
+import { Blog, User } from "../models";
 
 export const getAllBlogs = async (req, res) => {
   const populateQuery = [
-    { path: 'author', select: 'name' },
+    { path: "author", select: "name" },
     {
-      path: 'posts',
-      select: ['Name'],
+      path: "posts",
+      select: ["Name"],
     },
   ];
   const blogs = await Blog.find({})
 
-    .sort({ createdAt: 'desc' })
+    .sort({ createdAt: "desc" })
     .populate(populateQuery);
 
   res.status(200).json(blogs);
@@ -18,41 +18,48 @@ export const getAllBlogs = async (req, res) => {
 
 export const getBlogById = async (req, res) => {
   const populateQuery = [
-    { path: 'author', select: 'name' },
-    { path: 'posts', select: ['name'] },
+    { path: "author", select: "name" },
+    { path: "posts", select: ["name"] },
   ];
   const { id } = req.params;
 
   const blog = await Blog.findById(id).populate(populateQuery);
 
+  const blogAuthorId = blog.author?._id.valueOf();
+
   res.json({
-    isCreator: id === req.cookies.blogOwned?.toString(),
+    isCreator: req.user.id.toString() === blogAuthorId.toString(),
     blog,
   });
 };
 
 export const createBlog = async (req, res) => {
-  console.log('/createBlog');
+  console.log(req.user);
+  console.log("/createBlog");
   try {
     const { title, description } = req.body;
 
     const populateQuery = [
-      { path: 'author', select: 'name' },
+      { path: "author", select: "name" },
       {
-        path: 'posts',
-        select: ['Name'],
+        path: "posts",
+        select: ["Name"],
       },
     ];
 
     const user = await User.findById(req.user.id);
 
+    console.log(req.user.id);
+
+    console.log(user);
+
     if (!user) {
-      return res.status(401).json({ error: 'not authorized' });
+      return res.status(401).json({ error: "not authorized" });
     }
     if (!title || !description) {
       return res
         .status(400)
-        .json({ error: 'Please add a title and description' });
+        .json({ error: "Please add a title and description" });
     }
 
     const newBlog = await Blog.create({
@@ -61,7 +68,7 @@ export const createBlog = async (req, res) => {
       author: req.user.id,
     });
 
-    res.cookie('blogOwned', [newBlog._id], { httpOnly: true });
+    res.cookie("blogOwned", [newBlog._id], { httpOnly: true });
 
     res.json(newBlog);
   } catch (error) {
@@ -71,8 +78,6 @@ export const createBlog = async (req, res) => {
 };
 
 export const createBlogPost = async (req, res) => {
-  console.log('createBlogPost');
-  console.log(req);
   try {
     const { id } = req.params;
     const blog = await Blog.findByIdAndUpdate(id, {
@@ -95,15 +100,15 @@ export const deleteBlogPost = async (req, res) => {
 
     console.log(blog.author._id.toString());
     if (!blog) {
-      return res.status(404).json({ error: 'Blog not found' });
+      return res.status(404).json({ error: "Blog not found" });
     }
 
     if (blog.author._id.toString() === req.user.id.toString()) {
       await blog.remove();
-      return res.json({ success: 'Blog successfully deleted.' });
+      return res.json({ success: "Blog successfully deleted." });
     } else {
       return res.status(401).json({
-        error: 'Not authorized to delete a non owned blog.',
+        error: "Not authorized to delete a non owned blog.",
       });
     }
   } catch (error) {

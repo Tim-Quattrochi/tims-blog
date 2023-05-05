@@ -25,6 +25,11 @@ export const getBlogById = async (req, res) => {
 
   const blog = await Blog.findById(id).populate(populateQuery);
 
+  /* `const blogAuthorId = blog.author?._id.valueOf();` is getting the `_id` value of the author of a
+ blog post and assigning it to the `blogAuthorId` variable. The `?` is the optional chaining
+ operator, which checks if `blog.author` exists before trying to access its `_id` property. The
+ `valueOf()` method is used to get the primitive value of the `_id` property, which is a MongoDB
+ ObjectId. */
   const blogAuthorId = blog.author?._id.valueOf();
 
   res.json({
@@ -39,6 +44,8 @@ export const createBlog = async (req, res) => {
   try {
     const { title, description } = req.body;
 
+    console.log(description);
+
     const populateQuery = [
       { path: "author", select: "name" },
       {
@@ -49,12 +56,14 @@ export const createBlog = async (req, res) => {
 
     const user = await User.findById(req.user.id);
 
-    console.log(req.user.id);
-
-    console.log(user);
-
     if (!user) {
       return res.status(401).json({ error: "not authorized" });
+    }
+
+    if (description.length > 1000) {
+      return res
+        .status(422)
+        .json({ error: "Max length of the description is 1,000" });
     }
     if (!title || !description) {
       return res
@@ -95,10 +104,8 @@ export const deleteBlogPost = async (req, res) => {
   console.log(req.user.id);
 
   try {
-    console.log(req.user.id);
     const blog = await Blog.findById(id);
 
-    console.log(blog.author._id.toString());
     if (!blog) {
       return res.status(404).json({ error: "Blog not found" });
     }

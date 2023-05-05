@@ -5,9 +5,9 @@ import {
   useState,
   useContext,
   useEffect,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../utils/api';
+} from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 
 const initialState = {
   isAuthenticated: null,
@@ -16,13 +16,13 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case "LOGIN":
       return {
         ...state,
         isAuthenticated: true,
         user: action.payload,
       };
-    case 'LOGOUT':
+    case "LOGOUT":
       localStorage.clear();
       return {
         ...state,
@@ -56,14 +56,19 @@ export function useProvideAuth() {
 
   const signIn = async (email, password) => {
     try {
-      const response = await api.post('auth/signin', {
+      const response = await api.post("auth/signin", {
         email: email,
         password: password,
       });
-      localStorage.setItem('blogUser', JSON.stringify(response.user));
+      localStorage.setItem("blogUser", JSON.stringify(response.user));
+      localStorage.setItem(
+        "blogUserToken",
+        JSON.stringify(response.token)
+      );
+
       console.log(response.user);
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: response.user,
       });
       return response;
@@ -79,7 +84,7 @@ export function useProvideAuth() {
 
   const signUp = async (email, name, password, confirmPassword) => {
     try {
-      await api.post('auth/signup', {
+      await api.post("auth/signup", {
         email: email,
         name: name,
         password: password,
@@ -98,26 +103,26 @@ export function useProvideAuth() {
 
   const signOut = () => {
     dispatch({
-      type: 'LOGOUT',
+      type: "LOGOUT",
     });
-    navigate('/signin');
+    navigate("/signin");
   };
 
   const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem('blogUser'));
+    return JSON.parse(localStorage.getItem("blogUser"));
   };
 
   useEffect(() => {
     const savedUser =
-      JSON.parse(localStorage.getItem('blogUser')) || false;
+      JSON.parse(localStorage.getItem("blogUser")) || false;
     if (savedUser) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: savedUser,
       });
     } else {
       dispatch({
-        type: 'LOGOUT',
+        type: "LOGOUT",
       });
     }
   }, [dispatch]);

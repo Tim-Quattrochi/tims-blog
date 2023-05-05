@@ -8,7 +8,7 @@ const getUserToken = () => {
   const savedUserUserToken = JSON.parse(
     localStorage.getItem("blogUserToken")
   );
-  console.log(savedUserUserToken);
+
   if (savedUserUserToken === undefined) {
     return;
   }

@@ -1,14 +1,14 @@
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
-import { useProvideAuth } from '../hooks/AuthProvider';
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useProvideAuth } from "../hooks/AuthProvider";
 
 const Header = () => {
   const [returningUser, setReturningUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const auth = useProvideAuth();
-  console.log(auth);
+
   const {
     state: { isAuthenticated },
   } = useProvideAuth();
@@ -20,7 +20,7 @@ const Header = () => {
 
   useEffect(() => {
     //check local storage to see if returning user
-    const localUser = JSON.parse(localStorage.getItem('blogUser'));
+    const localUser = JSON.parse(localStorage.getItem("blogUser"));
 
     if (localUser) {
       setIsLoggedIn(true);
@@ -28,14 +28,13 @@ const Header = () => {
     }
   }, []);
 
-  console.log(isLoggedIn);
   return (
     <Container>
       <Navbar expand="md" bg="primary" variant="dark">
         <Navbar.Brand>
           {isAuthenticated
             ? `${auth.state.user.name}'s Blog`
-            : 'Guest'}
+            : "Guest"}
         </Navbar.Brand>
         <Nav>
           <Nav.Link as={Link} to="/blogs">
@@ -46,7 +45,7 @@ const Header = () => {
               Create Blog
             </Nav.Link>
           ) : (
-            ''
+            ""
           )}
 
           {isAuthenticated ? (

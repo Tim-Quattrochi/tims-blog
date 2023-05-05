@@ -1,37 +1,41 @@
-import { useEffect, useState } from 'react';
-import useCreateBlog from '../hooks/useCreateBlog';
-import { Container, Form, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import api from '../utils/api';
+import useCreateBlog from "../hooks/useCreateBlog";
+import { useEffect } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 
-const EditBlog = ({ id, blog }) => {
-  const { state, handleChange, editBlog, reset, saveProgress } =
-    useCreateBlog();
-  const { title, description } = blog;
-  const [edit, setEdit] = useState({
-    title: title,
-    description: description,
-  });
+const EditBlog = ({ id, blog, setIsEdit, setBlog }) => {
+  const {
+    state,
+    handleChange,
+    editBlog,
+    reset,
+    saveProgress,
+    dispatch,
+  } = useCreateBlog();
 
-  const navigate = useNavigate();
+  const { title, description } = state;
 
   useEffect(() => {
-    const updateBlog = api
-      .put(`/blogs/${id}`, { title, description })
-      .then((response) => {
-        reset();
-        navigate(`/blogs/${response._id}`);
-      })
-      .catch((err) => console.log(err));
-  }, [id, reset, navigate, description, title]);
+    dispatch({
+      type: "HANDLE_CHANGE",
+      payload: {
+        name: "description",
+        value: blog.description,
+      },
+    });
+  }, [blog, dispatch]);
 
-  console.log(blog);
   return (
     <Container>
       <h1>Edit your blog post</h1>
       <Form
         onSubmit={(e) => {
           editBlog(e, id);
+          setBlog({
+            ...blog,
+            title,
+            description,
+          });
+          setIsEdit(false);
         }}
       >
         <Form.Group className="mb-3">
@@ -39,8 +43,8 @@ const EditBlog = ({ id, blog }) => {
           <Form.Control
             type="text"
             name="title"
-            value={edit.title}
-            onChange={(e) => setEdit(e.target.value)}
+            value={state.title}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -49,8 +53,8 @@ const EditBlog = ({ id, blog }) => {
             as="textarea"
             rows="3"
             name="description"
-            value={edit.description}
-            onChange={(e) => setEdit(e.target.value)}
+            value={state.description}
+            onChange={handleChange}
           />
         </Form.Group>
         <Form.Group>

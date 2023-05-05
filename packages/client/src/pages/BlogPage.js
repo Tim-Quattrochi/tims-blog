@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import CreateBlogPage from '../pages/CreateBlogPage';
-import api from '../utils/api';
-import BlogCard from '../components/BlogCard';
-import LoadingSpinner from '../components/LoadingSpinner';
-import BlogPostForm from '../components/BlogPostForm';
-import Posts from '../components/Posts';
-import formatDate from '../utils/formatDate';
-import useCreateBlog from '../hooks/useCreateBlog';
-import EditBlog from './EditBlog';
+import React, { useEffect, useState } from "react";
+import { Container, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import api from "../utils/api";
+import BlogCard from "../components/BlogCard";
+import LoadingSpinner from "../components/LoadingSpinner";
+import useCreateBlog from "../hooks/useCreateBlog";
+import EditBlog from "./EditBlog";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState();
@@ -24,28 +20,22 @@ const BlogPage = () => {
       .get(`/blogs/${blogId}`)
       .then((response) => {
         setEditBlog(response.blog);
-        setBlog(response);
+        setBlog(response.blog);
         setIsCreator(response.isCreator);
       })
 
       .catch((err) => console.log(err));
   }, [blogId]);
 
-  console.log(isCreator);
-
   const handleClick = () => {
     setIsEdit((current) => !current);
-  };
-
-  const handleEdit = () => {
-    return <EditBlog />;
   };
 
   return (
     <>
       {blog ? (
         <Container>
-          <BlogCard blog={blog.blog}> </BlogCard>
+          <BlogCard blog={blog}> </BlogCard>
 
           {isCreator ? (
             <div className="text-center">
@@ -57,13 +47,18 @@ const BlogPage = () => {
                 Delete
               </Button>
               <Button onClick={handleClick}>Edit</Button>
-              {isEdit && <EditBlog id={blogId} blog={blog.blog} />}
+              {isEdit && (
+                <EditBlog
+                  id={blogId}
+                  blog={blog}
+                  setIsEdit={setIsEdit}
+                  setBlog={setBlog}
+                />
+              )}
             </div>
           ) : (
-            ''
+            ""
           )}
-
-          {/* {blog && blog.isCreator && <CreateBlogPage />} */}
         </Container>
       ) : (
         <LoadingSpinner />

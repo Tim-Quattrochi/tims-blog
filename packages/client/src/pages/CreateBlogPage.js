@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
-import useCreateBlog from '../hooks/useCreateBlog';
+import { useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import useCreateBlog from "../hooks/useCreateBlog";
 
 const CreateBlogPage = () => {
   const {
@@ -11,7 +11,6 @@ const CreateBlogPage = () => {
     saveProgress,
   } = useCreateBlog();
 
- 
   return (
     <Container>
       <h1>Create a Blog</h1>
@@ -29,11 +28,13 @@ const CreateBlogPage = () => {
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"
+            style={{ whiteSpace: "pre-wrap" }}
             rows="3"
             name="description"
             value={state.description}
             onChange={handleChange}
           />
+          Characters: {state.description.length}
         </Form.Group>
         <Form.Group>
           <Button type="submit" variant="primary">

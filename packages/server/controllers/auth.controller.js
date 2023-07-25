@@ -12,7 +12,9 @@ export const signUp = async (req, res) => {
     const { name, email, password, confirmPassword } = req.body;
 
     if (!name || !email || !password || !confirmPassword) {
-      return res.status(422).json({ error: "All fields required." });
+      return res
+        .status(422)
+        .json({ error: "Please enter all the fields." });
     }
 
     const existingUser = await User.findOne({ email });
@@ -82,12 +84,12 @@ export const signIn = async (req, res) => {
 
     const token = jwt.sign(claims, JWT_SECRET);
 
-     res.cookie("blogUser", token, {
-       httpOnly: true,
-       secure: true,
-       sameSite: "None",
-       maxAge: 7 * 24 * 60 * 60 * 1000,
-     });
+    res.cookie("blogUser", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({
       token,

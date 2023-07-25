@@ -1,6 +1,4 @@
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import keys from "../configs/keys";
 import { User } from "../models";
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -16,18 +14,13 @@ export default async function requireAuth(req, res, next) {
       // get token from header
       token = req.headers.authorization.split(" ")[1];
 
-      console.log(token);
-
       //verify token
       const decoded = jwt.verify(token, JWT_SECRET);
-      console.log(decoded);
 
       //get user from token
       req.user = await User.findById(decoded.sub).select(
         "-passwordHash"
       );
-
-      console.log("test", req.user);
 
       next();
     } catch (error) {

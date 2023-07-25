@@ -13,8 +13,6 @@ const DB_URL = process.env.DB_URL;
 const API_URL = keys.api.url;
 const PORT = process.env.PORT;
 
-console.log(API_URL);
-
 mongoose
   .connect(DB_URL, {
     useNewUrlParser: true,

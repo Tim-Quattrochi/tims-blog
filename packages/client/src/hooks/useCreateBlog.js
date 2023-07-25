@@ -15,8 +15,9 @@ const reducer = (state, action) => {
   const { ...newState } = state;
   switch (action.type) {
     case "HANDLE_CHANGE":
-      newState[action.payload.name] = action.payload.value;
-      return newState;
+      const { name, value } = action.payload;
+      return { ...newState, [name]: value };
+
     case "HANDLE_RESET":
       return initialState;
     case "SET_IS_SUBMITTING":
@@ -44,8 +45,6 @@ const useCreateBlog = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
   const auth = useProvideAuth();
-
-  console.log("from the reducer:", state);
 
   useEffect(() => {
     const savedBlogPost = JSON.parse(
@@ -97,7 +96,6 @@ const useCreateBlog = () => {
         navigate(`/blogs/${response._id}`);
       })
       .catch((err) => {
-        console.log(err);
         toast.error(`${err.response?.data.error}`);
       });
   };
@@ -115,37 +113,33 @@ const useCreateBlog = () => {
       .delete(`/blogs/${id}`, { title, description })
       .then((response) => {
         toast.success("Blog post deleted successfully.");
-        console.log(response);
+
         reset();
         navigate(`/blogs/`);
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Something went wrong.");
+        toast.error(err.response.data.error || err.message);
       });
   };
 
   const { title, description } = state;
 
-  const editBlog = (e, id) => {
+  const editBlog = async (e, id) => {
     e.preventDefault();
     dispatch({
       type: "SET_IS_SUBMITTING",
       payload: true,
     });
 
-    api
-      .put(`/blogs/${id}`, { title, description })
-      .then((response) => {
-        toast.success("Blog post edited successfully.");
-
-        reset();
-        navigate(`/blogs/${id}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Something went wrong.");
-      });
+    try {
+      await api.put(`/blogs/${id}`, { title, description });
+      toast.success("Blog edited Successfully.");
+      reset();
+      navigate(`/blogs/${id}`);
+    } catch (err) {
+      toast.error(err.response.data.error || err.message);
+    }
   };
 
   const reset = () => {

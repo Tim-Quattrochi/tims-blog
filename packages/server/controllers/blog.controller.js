@@ -39,12 +39,11 @@ export const getBlogById = async (req, res) => {
 };
 
 export const createBlog = async (req, res) => {
-  console.log(req.user);
-  console.log("/createBlog");
+
   try {
     const { title, description } = req.body;
 
-    console.log(description);
+
 
     const populateQuery = [
       { path: "author", select: "name" },
@@ -101,7 +100,7 @@ export const createBlogPost = async (req, res) => {
 
 export const deleteBlogPost = async (req, res) => {
   const { id } = req.params;
-  console.log(req.user.id);
+
 
   try {
     const blog = await Blog.findById(id);
@@ -124,17 +123,35 @@ export const deleteBlogPost = async (req, res) => {
 };
 
 export const editBlogPost = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedBlog = await Blog.findByIdAndUpdate(
-      id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
+  const { id } = req.params;
+  const { title, description } = req.body;
 
-    res.status(200).json(updatedBlog);
+  if (!title && !description) {
+    return res
+      .status(400)
+      .json({ error: "Cannot submit empty blog edit." });
+  }
+  try {
+    let blog = await Blog.findById(id)
+
+    if (blog.author._id.toString() !== req.user.id.toString()) {
+      return res.status(401).json({error: "Not authorized."})
+    }
+    
+    blog.title = title
+    blog.description = description
+
+    await blog.save()
+blog = blog.toJSON()
+    // const updatedBlog = await Blog.findByIdAndUpdate(
+    //   id,
+    //   {
+    //     $set: req.body,
+    //   },
+    //   { new: true }
+    // );
+
+    res.status(200).json(blog);
   } catch (error) {
     res.status(500).json({ error: error });
   }

@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { Button, Container, Form, Alert } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../utils/api";
 import { setAuthToken } from "../utils/api";
 import { useProvideAuth } from "../hooks/AuthProvider";
 
@@ -12,12 +17,12 @@ const initialState = {
   confirmPassword: "",
   error: null,
   touched: false,
+  loading: false,
 };
 
 const SignUpPage = () => {
   const [data, setData] = useState(initialState);
   const [validated, setValidated] = useState(false);
-  const [error, setError] = useState(null);
   const auth = useProvideAuth();
 
   const navigate = useNavigate();
@@ -47,8 +52,8 @@ const SignUpPage = () => {
       e.preventDefault();
       e.stopPropagation();
     }
+    setData({ ...data, loading: true });
     try {
-      console.log(data);
       const res = await auth.signUp(
         //the order of these must match the back end
         email,
@@ -65,10 +70,12 @@ const SignUpPage = () => {
       console.log(error);
       setData({
         ...data,
+        loading: false,
         error: error.message,
       });
     }
     setValidated(true);
+    setData(initialState);
   };
   return (
     <Container className="d-flex justify-content-center align-items-center flex-column">
@@ -160,9 +167,22 @@ const SignUpPage = () => {
           )}
         </Form.Group>
 
-        <Button type="submit" variant="primary">
-          Submit
-        </Button>
+        {data.loading ? (
+          <Button variant="primary">
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            Loading...
+          </Button>
+        ) : (
+          <Button type="submit" variant="primary">
+            Register
+          </Button>
+        )}
         <Alert
           hidden={!data.error}
           variant="danger"

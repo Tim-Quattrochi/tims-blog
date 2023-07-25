@@ -56,6 +56,10 @@ export function useProvideAuth() {
 
   const signIn = async (email, password) => {
     try {
+      if (!email || !password) {
+        throw new Error("Please fill out all fields.");
+      }
+
       const response = await api.post("auth/signin", {
         email: email,
         password: password,
@@ -66,14 +70,12 @@ export function useProvideAuth() {
         JSON.stringify(response.token)
       );
 
-      console.log(response.user);
       dispatch({
         type: "LOGIN",
         payload: response.user,
       });
       return response;
     } catch (error) {
-      console.log(error);
       if (error.response) {
         throw new Error(error.response.data.error);
       } else {

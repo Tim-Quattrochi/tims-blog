@@ -14,9 +14,12 @@ export default function BlogCard({ blog }) {
   return (
     <Container>
       <CardGroup>
-        <Card style={{ width: "18rem", marginTop: "5rem" }}>
+        <Card
+          className="my-4"
+          style={{ width: "auto", margin: "20px" }}
+        >
           <Card.Body>
-            <Card.Title as="h6" style={{ color: "info" }}>
+            <Card.Title as="h4" style={{ color: "#007bff" }}>
               {location.pathname === `/blogs/${blogId}` ? (
                 `${blog.title}`
               ) : (
@@ -24,10 +27,14 @@ export default function BlogCard({ blog }) {
               )}{" "}
             </Card.Title>
 
-            <Card.Text as="p" style={{ whiteSpace: "pre-wrap" }}>
+            <Card.Text
+              as="p"
+              className="text-justify"
+              style={{ whiteSpace: "pre-wrap" }}
+            >
               {blog?.description}
             </Card.Text>
-            <Card.Text>
+            <Card.Text className="text-muted">
               {" "}
               posted by {blog.author?.name}
               on {formatDate(dateStr)}

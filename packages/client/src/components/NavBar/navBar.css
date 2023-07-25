@@ -1,0 +1,9 @@
+Your other styles
+
+/* Style for active NavLink */
+.nav-link.active-link {
+  /* Your styles for the active link go here */
+  font-weight: bold;
+  color: red;
+  /* Add any other styles you want for the active link */
+}

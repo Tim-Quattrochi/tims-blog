@@ -5,21 +5,21 @@ import BlogCard from "../components/BlogCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const AllBlogs = () => {
-  const [blog, setBlog] = useState();
+  const [blogs, setBlogs] = useState();
 
   useEffect(() => {
     api
       .get(`/blogs`)
-      .then((response) => setBlog(response))
+      .then((response) => setBlogs(response))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <>
-      {blog ? (
+      {blogs ? (
         <Container>
-          {blog.map((blog, index) => (
-            <BlogCard blog={blog} key={index} />
+          {blogs.map((blog) => (
+            <BlogCard blog={blog} key={blog._id} />
           ))}
         </Container>
       ) : (

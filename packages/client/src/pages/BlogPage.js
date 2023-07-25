@@ -11,7 +11,6 @@ const BlogPage = () => {
   const [blog, setBlog] = useState();
   const { blogId } = useParams();
   const { deleteBlog } = useCreateBlog();
-  const [editBlog, setEditBlog] = useState();
   const [isCreator, setIsCreator] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -19,7 +18,6 @@ const BlogPage = () => {
     api
       .get(`/blogs/${blogId}`)
       .then((response) => {
-        setEditBlog(response.blog);
         setBlog(response.blog);
         setIsCreator(response.isCreator);
       })
@@ -30,7 +28,7 @@ const BlogPage = () => {
   const handleClick = () => {
     setIsEdit((current) => !current);
   };
-
+console.log(blog)
   return (
     <>
       {blog ? (
@@ -46,7 +44,9 @@ const BlogPage = () => {
               >
                 Delete
               </Button>
-              <Button onClick={handleClick}>Edit</Button>
+              <Button onClick={handleClick} className="m-4">
+                Edit
+              </Button>
               {isEdit && (
                 <EditBlog
                   id={blogId}

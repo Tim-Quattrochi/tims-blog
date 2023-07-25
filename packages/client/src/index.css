@@ -1,15 +1,12 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 loadingSpinnerContainer {
@@ -42,6 +39,27 @@ loadingSpinnerContainer {
     transform: rotate(360deg);
   }
 }
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #ebecf0;
+  font-family: "Open Sans", sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: #172b4d;
+}
+
+h1 {
+  font-family: "Song Myung", serif;
+}
 
 /* RESET */
 * {
@@ -52,7 +70,7 @@ loadingSpinnerContainer {
 
 body {
   background: #ebecf0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   min-height: 100vh;
 }
 
@@ -62,29 +80,7 @@ a {
 }
 
 h1 {
-  font-family: 'Song Myung', serif;
-}
-
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: #ebecf0;
-  font-family: 'Open Sans', sans-serif;
-  min-height: 100vh;
-}
-
-a {
-  text-decoration: none;
-  color: #172b4d;
-}
-
-h1 {
-  font-family: 'Song Myung', serif;
+  font-family: "Song Myung", serif;
 }
 
 /* DEFAULT STYLE */
@@ -92,6 +88,7 @@ h1 {
   font-size: 16px;
   --card-img-height: 200px;
 }
+
 .card-container {
   width: 100%;
   height: 100vh;
@@ -110,4 +107,4 @@ h1 {
   margin: 1.25rem 0.75rem;
   background: white;
   transition: all 300ms ease-in-out;
-}
+}/*# sourceMappingURL=index.css.map */

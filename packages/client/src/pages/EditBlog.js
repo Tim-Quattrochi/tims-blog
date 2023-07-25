@@ -14,14 +14,27 @@ const EditBlog = ({ id, blog, setIsEdit, setBlog }) => {
 
   const { title, description } = state;
 
-  useEffect(() => {
-    dispatch({
-      type: "HANDLE_CHANGE",
+  /**
+   * @description populate the values for the blog title and description from the blog to the reducer.
+   *
+   * @param {string} type the action type
+   * @param {string} name the value to add to the name and the blog obj
+   * @returns
+   */
+  const handleUpdateValues = (type, name) => {
+    return dispatch({
+      type: type,
       payload: {
-        name: "description",
-        value: blog.description,
+        name: name,
+        value: blog[name],
       },
     });
+  };
+
+  useEffect(() => {
+    handleUpdateValues("HANDLE_CHANGE", "title");
+
+    handleUpdateValues("HANDLE_CHANGE", "description");
   }, [blog, dispatch]);
 
   return (
@@ -43,7 +56,7 @@ const EditBlog = ({ id, blog, setIsEdit, setBlog }) => {
           <Form.Control
             type="text"
             name="title"
-            value={state.title}
+            value={state && state.title}
             onChange={handleChange}
           />
         </Form.Group>

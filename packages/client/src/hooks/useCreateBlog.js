@@ -45,6 +45,8 @@ const useCreateBlog = () => {
   const navigate = useNavigate();
   const auth = useProvideAuth();
 
+  console.log("from the reducer:", state);
+
   useEffect(() => {
     const savedBlogPost = JSON.parse(
       localStorage.getItem("blog_post_progress")

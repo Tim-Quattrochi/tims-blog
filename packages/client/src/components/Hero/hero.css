@@ -1,0 +1,91 @@
+.hero-section {
+  position: relative;
+  background-color: #f0fff4;
+  color: #0d1b2a;
+  height: 35rem;
+  background-image: url("../../assets/heroImage.jpg");
+  background-size: cover;
+  background-position: center;
+  animation: fade-in-animation 1s forwards;
+  opacity: 0;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-heading {
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+
+  animation: text-shadow-animation 1.5s infinite;
+}
+
+@keyframes text-shadow-animation {
+  0% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.p-text {
+  font-size: 20px;
+}
+
+.cta-button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  font-size: 18px;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 5px;
+
+  animation: box-shadow-animation 1.5s infinite;
+}
+
+@keyframes box-shadow-animation {
+  0% {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes fade-in-animation {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 300px;
+  }
+  .hero-heading {
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+
+    animation: text-shadow-animation 1.5s infinite;
+  }
+  .p-text {
+    font-size: 15px;
+  }
+}

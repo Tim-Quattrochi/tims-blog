@@ -6,3 +6,16 @@
   text-align: start;
   margin-bottom: 5px;
 }
+
+section.recent-posts-section a {
+  background-color: #9bc995;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+section.recent-posts-section a:hover {
+  background-color: #7fad7b;
+}

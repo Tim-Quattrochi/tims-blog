@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import useGetBlogs from "../../hooks/useGetBlogs";
 import "./landing.css";
 import { Link } from "react-router-dom";
+import Hero from "../../components/Hero/Hero";
 
 const LandingPage = () => {
   const { blogs } = useGetBlogs();
@@ -22,22 +23,12 @@ const LandingPage = () => {
 
   return (
     <div>
-      <section
-        className="hero-section"
-        style={{ backgroundColor: "#F0FFF4", color: "#0D1B2A" }}
-      >
-        <Container>
-          <Row>
-            <Col>
-              <h1>Welcome to Blog Talk</h1>
-              <p className="p-text">
-                Explore our latest blog posts and stay informed.
-              </p>
-              {/* Add any other hero section content here */}
-            </Col>
-          </Row>
-        </Container>
-      </section>
+      <Hero
+        title="Welcome to Blog Talk"
+        para="Explore our latest blog posts and stay informed."
+        btnName="Explore Blogs"
+        path="blogs"
+      />
 
       <section
         className="recent-posts-section"
@@ -48,7 +39,7 @@ const LandingPage = () => {
           <Row>
             {blogs &&
               sortByNewest(blogs).map((blog) => (
-                <Col key={blog.id} md={4}>
+                <Col key={blog._id} md={4}>
                   <Card className="mb-4">
                     <Card.Body>
                       <Card.Title>{blog.title}</Card.Title>
@@ -58,12 +49,8 @@ const LandingPage = () => {
                       <Card.Text>
                         {truncateText(blog.description, 150)}
                       </Card.Text>
-                      <Button
-                        as={Link}
-                        variant="primary"
-                        to={`/blog/${blog._id}`}
-                      >
-                        Read More
+                      <Button as={Link} to={`/blog/${blog._id}`}>
+                        Read this blog
                       </Button>
                     </Card.Body>
                   </Card>
@@ -72,8 +59,6 @@ const LandingPage = () => {
           </Row>
         </Container>
       </section>
-
-      {/* Add other sections of the landing page here */}
     </div>
   );
 };

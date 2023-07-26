@@ -93,7 +93,7 @@ const useCreateBlog = () => {
       .post(`/blogs/create/${userId}`, { title, description })
       .then((response) => {
         reset();
-        navigate(`/blogs/${response._id}`);
+        navigate(`/blog/${response._id}`);
       })
       .catch((err) => {
         toast.error(`${err.response?.data.error}`);
@@ -136,7 +136,7 @@ const useCreateBlog = () => {
       await api.put(`/blogs/${id}`, { title, description });
       toast.success("Blog edited Successfully.");
       reset();
-      navigate(`/blogs/${id}`);
+      navigate(`/blog/${id}`);
     } catch (err) {
       toast.error(err.response.data.error || err.message);
     }

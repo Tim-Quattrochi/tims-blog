@@ -43,8 +43,8 @@ const NavBar = () => {
       <Container>
         <Navbar.Brand
           as={NavLink}
-          to="/blogs"
-          style={getActiveLinkStyle("/blogs")}
+          to="/"
+          style={getActiveLinkStyle("/")}
         >
           Blog Talk
         </Navbar.Brand>

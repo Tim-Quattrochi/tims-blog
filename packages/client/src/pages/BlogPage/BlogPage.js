@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import BlogCard from "../../components/BlogCard/BlogCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -14,6 +14,8 @@ const BlogPage = () => {
   const { deleteBlog } = useCreateBlog();
   const [isCreator, setIsCreator] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     api
@@ -47,6 +49,9 @@ const BlogPage = () => {
               </Button>
               <Button onClick={handleClick} className="edit">
                 Edit
+              </Button>
+              <Button onClick={() => navigate(-1)} className="back">
+                Go Back
               </Button>
               {isEdit && (
                 <EditBlog

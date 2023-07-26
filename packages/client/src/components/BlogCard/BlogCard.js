@@ -21,10 +21,10 @@ export default function BlogCard({ blog }) {
         >
           <Card.Body>
             <Card.Title as="h4" style={{ color: "#007bff" }}>
-              {location.pathname === `/blogs/${blogId}` ? (
+              {location.pathname === `/blog/${blogId}` ? (
                 `${blog.title}`
               ) : (
-                <Link to={`/blogs/${blog._id}`}>{blog.title}</Link>
+                <Link to={`/blog/${blog._id}`}>{blog.title}</Link>
               )}{" "}
             </Card.Title>
 

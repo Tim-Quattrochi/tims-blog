@@ -9,6 +9,7 @@ import BlogPage from "./pages/BlogPage/BlogPage";
 import AllBlogs from "./pages/AllBlogs";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
+import LandingPage from "./pages/Landing/Landing";
 
 function App() {
   return (
@@ -16,12 +17,14 @@ function App() {
       <ToastContainer />
       <Header />
       <Routes>
+        <Route path="/" element={<LandingPage />} />
+
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/signin" element={<SignInPage />} />
 
         <Route path="/blogs" element={<AllBlogs />} />
         <Route path="/blogs/create" element={<CreateBlogPage />} />
-        <Route path="/blogs/:blogId" element={<BlogPage />} />
+        <Route path="/blog/:blogId" element={<BlogPage />} />
       </Routes>
     </>
   );

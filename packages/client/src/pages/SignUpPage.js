@@ -38,7 +38,10 @@ const SignUpPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
-
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const { email, password, confirmPassword, name } = data;
 
     if (password !== confirmPassword) {
@@ -48,10 +51,6 @@ const SignUpPage = () => {
       });
     }
 
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
     setData({ ...data, loading: true });
     try {
       const res = await auth.signUp(
@@ -91,7 +90,7 @@ const SignUpPage = () => {
           <Form.Label>Name</Form.Label>
           <Form.Control
             required
-            isValid={!!data.name.length > 3}
+            isValid={data.name.length > 3}
             type="text"
             name="name"
             autoComplete="name"
@@ -106,7 +105,7 @@ const SignUpPage = () => {
           <Form.Label>Email</Form.Label>
           <Form.Control
             required
-            type="text"
+            type="email"
             name="email"
             autoComplete="email"
             value={data.email}
@@ -123,7 +122,7 @@ const SignUpPage = () => {
             type="password"
             name="password"
             autoComplete="new-password"
-            isInvalid={data.password.length < 7}
+            isInvalid={data.touched && data.password.length < 7}
             value={data.password}
             onChange={handleChange}
           />

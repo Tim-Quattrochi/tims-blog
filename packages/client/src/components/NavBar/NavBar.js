@@ -1,34 +1,14 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useProvideAuth } from "../../hooks/AuthProvider";
 import "./navBar.css";
 
 const NavBar = () => {
-  const [returningUser, setReturningUser] = useState();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const auth = useProvideAuth();
-  const location = useLocation();
-
   const {
-    state: { isAuthenticated },
+    state: { user, isAuthenticated },
+    signOut,
   } = useProvideAuth();
-
-  const logOut = () => {
-    setIsLoggedIn(false);
-    auth.signOut();
-  };
-
-  useEffect(() => {
-    //check local storage to see if returning user
-    const localUser = JSON.parse(localStorage.getItem("blogUser"));
-
-    if (localUser) {
-      setIsLoggedIn(true);
-      setReturningUser(localUser.name);
-    }
-  }, []);
+  const location = useLocation();
 
   const getActiveLinkStyle = (pathname) => {
     return {
@@ -51,7 +31,7 @@ const NavBar = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text style={{ color: "white" }}>
-            {isAuthenticated && `${auth.state.user.name}'s Blog`}
+            {isAuthenticated && `${user.name}'s Blog`}
           </Navbar.Text>
         </Navbar.Collapse>
         <Nav className="mx-4">
@@ -75,7 +55,7 @@ const NavBar = () => {
           )}
           {isAuthenticated ? (
             <Nav.Link
-              onClick={logOut}
+              onClick={signOut}
               as={NavLink}
               to="/signin"
               style={getActiveLinkStyle("/signin")}

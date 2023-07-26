@@ -39,11 +39,8 @@ export const getBlogById = async (req, res) => {
 };
 
 export const createBlog = async (req, res) => {
-
   try {
     const { title, description } = req.body;
-
-
 
     const populateQuery = [
       { path: "author", select: "name" },
@@ -58,11 +55,11 @@ export const createBlog = async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: "not authorized" });
     }
-
-    if (description.length > 1000) {
+    console.log(description.length);
+    if (description.length > 3000) {
       return res
         .status(422)
-        .json({ error: "Max length of the description is 1,000" });
+        .json({ error: "Max length of the description is 3,000" });
     }
     if (!title || !description) {
       return res
@@ -101,7 +98,6 @@ export const createBlogPost = async (req, res) => {
 export const deleteBlogPost = async (req, res) => {
   const { id } = req.params;
 
-
   try {
     const blog = await Blog.findById(id);
 
@@ -132,17 +128,17 @@ export const editBlogPost = async (req, res) => {
       .json({ error: "Cannot submit empty blog edit." });
   }
   try {
-    let blog = await Blog.findById(id)
+    let blog = await Blog.findById(id);
 
     if (blog.author._id.toString() !== req.user.id.toString()) {
-      return res.status(401).json({error: "Not authorized."})
+      return res.status(401).json({ error: "Not authorized." });
     }
-    
-    blog.title = title
-    blog.description = description
 
-    await blog.save()
-blog = blog.toJSON()
+    blog.title = title;
+    blog.description = description;
+
+    await blog.save();
+    blog = blog.toJSON();
     // const updatedBlog = await Blog.findByIdAndUpdate(
     //   id,
     //   {

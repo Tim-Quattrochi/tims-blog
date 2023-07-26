@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from "mongoose";
 
 const blogSchema = new Schema(
   {
@@ -11,12 +11,12 @@ const blogSchema = new Schema(
     description: {
       type: String,
       required: true,
-      minLength: 15,
-      maxLength: 1000,
+      minLength: 100,
+      maxLength: 3000,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     posts: [
       {
@@ -33,7 +33,7 @@ const blogSchema = new Schema(
         },
         author: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
+          ref: "User",
         },
       },
     ],
@@ -41,6 +41,6 @@ const blogSchema = new Schema(
   { timestamps: true }
 );
 
-const Blog = model('Blog', blogSchema);
+const Blog = model("Blog", blogSchema);
 
 export default Blog;

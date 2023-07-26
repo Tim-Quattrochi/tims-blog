@@ -37,7 +37,7 @@ export default function BlogCard({ blog }) {
             </Card.Text>
             <Card.Text className="text-muted">
               {" "}
-              posted by {blog.author?.name + " "}
+              Blogged by {blog.author?.name + " "}
               on {formatDate(dateStr)}
             </Card.Text>
           </Card.Body>

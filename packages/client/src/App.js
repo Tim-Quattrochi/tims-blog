@@ -10,10 +10,11 @@ import AllBlogs from "./pages/AllBlogs";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import LandingPage from "./pages/Landing/Landing";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
-    <>
+    <div className="wrapper">
       <ToastContainer />
       <Header />
       <Routes>
@@ -26,7 +27,8 @@ function App() {
         <Route path="/blogs/create" element={<CreateBlogPage />} />
         <Route path="/blog/:blogId" element={<BlogPage />} />
       </Routes>
-    </>
+      <Footer />
+    </div>
   );
 }
 

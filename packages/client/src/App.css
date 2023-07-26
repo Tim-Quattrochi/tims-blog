@@ -52,3 +52,8 @@ a {
   text-decoration: none;
   color: #172b4d;
 }
+
+/* wrap the app to keep footer from blocking content */
+.wrapper {
+  padding-bottom: 60px;
+}

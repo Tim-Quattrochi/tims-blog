@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Col } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import BlogCard from "../../components/BlogCard/BlogCard";
@@ -37,10 +37,16 @@ const BlogPage = () => {
       {blog ? (
         <Container className="blog-page-container">
           <BlogCard blog={blog}> </BlogCard>
+          <Col as="span" className="back-btn-container">
+            <Button onClick={() => navigate(-1)} className="back">
+              Go Back
+            </Button>
+          </Col>
 
           {isCreator ? (
-            <div className="text-center">
+            <div className="text-center btn-container">
               <Button
+                className="delete"
                 onClick={(e) => {
                   deleteBlog(e, blogId);
                 }}
@@ -50,9 +56,7 @@ const BlogPage = () => {
               <Button onClick={handleClick} className="edit">
                 Edit
               </Button>
-              <Button onClick={() => navigate(-1)} className="back">
-                Go Back
-              </Button>
+
               {isEdit && (
                 <EditBlog
                   id={blogId}

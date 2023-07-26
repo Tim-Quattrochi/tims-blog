@@ -20,10 +20,41 @@ Button[type="button"] {
   color: #0d1b2a;
 }
 
-.blog-page-container .edit {
-  border: 1px solid #dddddd;
+.blog-page-container Button[type="button"].edit {
+  color: blanchedalmond;
+  background-color: #4f7cac;
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
-  color: #0d1b2a;
+}
+.blog-page-container Button[type="button"].edit:hover {
+  background-color: #74a0cf;
+}
+.blog-page-container Button[type="button"].delete {
+  color: blanchedalmond;
+  background-color: #c12915;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.blog-page-container Button[type="button"].delete:hover {
+  background-color: #df6844;
+}
+
+span Button[type="button"].back {
+  color: blanchedalmond;
+  background-color: #367bc4;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+span Button[type="button"].back:hover {
+  background-color: #6a94c1;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 2%;
 }

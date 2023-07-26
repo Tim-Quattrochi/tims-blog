@@ -11,6 +11,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import LandingPage from "./pages/Landing/Landing";
 import Footer from "./components/Footer/Footer";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -24,8 +25,16 @@ function App() {
         <Route path="/signin" element={<SignInPage />} />
 
         <Route path="/blogs" element={<AllBlogs />} />
-        <Route path="/blogs/create" element={<CreateBlogPage />} />
-        <Route path="/blog/:blogId" element={<BlogPage />} />
+
+        {/* Beginning Private Routes */}
+        <Route path="/blogs/create" element={<PrivateRoute />}>
+          <Route path="/blogs/create" element={<CreateBlogPage />} />
+        </Route>
+
+        <Route path="/blog/:blogId" element={<PrivateRoute />}>
+          <Route path="/blog/:blogId" element={<BlogPage />} />
+        </Route>
+        {/* End Private Routes */}
       </Routes>
       <Footer />
     </div>

@@ -1,11 +1,11 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import CreateBlogPage from "./pages/CreateBlogPage";
+import CreateBlogPage from "./pages/CreateBlog/CreateBlogPage";
 import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Header from "./components/NavBar/NavBar";
-import BlogPage from "./pages/BlogPage";
+import BlogPage from "./pages/BlogPage/BlogPage";
 import AllBlogs from "./pages/AllBlogs";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";

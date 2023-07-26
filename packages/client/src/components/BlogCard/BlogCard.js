@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { Card, CardGroup, Container } from "react-bootstrap";
-import formatDate from "../utils/formatDate";
-import Posts from "./Posts";
+import formatDate from "../../utils/formatDate";
+import Posts from "../Posts";
 import uuid from "react-uuid";
+import "./blogCard.css";
 
 export default function BlogCard({ blog }) {
   const location = useLocation();
@@ -12,7 +13,7 @@ export default function BlogCard({ blog }) {
   const { blogId } = useParams();
 
   return (
-    <Container>
+    <Container className="card-body-container">
       <CardGroup>
         <Card
           className="my-4"
@@ -36,7 +37,7 @@ export default function BlogCard({ blog }) {
             </Card.Text>
             <Card.Text className="text-muted">
               {" "}
-              posted by {blog.author?.name}
+              posted by {blog.author?.name + " "}
               on {formatDate(dateStr)}
             </Card.Text>
           </Card.Body>

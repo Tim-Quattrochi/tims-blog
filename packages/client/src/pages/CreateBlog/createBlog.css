@@ -1,0 +1,99 @@
+.CreateBlogContainer {
+  max-width: 600px;
+  margin: 10% auto 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0d1b2a;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0d1b2a;
+}
+
+Form.Control[type="text"],
+Form.Control[type="textarea"] {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+Form.Control[type="text"]:focus,
+Form.Control[type="textarea"]:focus {
+  border-color: #9bc995;
+  box-shadow: 0 0 0 3px rgba(155, 201, 149, 0.3);
+  outline: none;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+Button[type="submit"] {
+  background-color: #9bc995;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+Button[type="submit"]:hover {
+  background-color: #7fad7b;
+}
+
+Button[type="button"] {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #0d1b2a;
+}
+
+.CreateBlogContainer .saveDraftBtn {
+  border: 1px solid #778899;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #0d1b2a;
+}
+
+.CreateBlogContainer .saveDraftBtn:hover {
+  background-color: #e8e8e8;
+}
+
+Button[type="button"]:hover {
+  background-color: #f5f5f5;
+}
+
+.CreateBlogContainer .resetBtn {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #0d1b2a;
+}
+
+.CreateBlogContainer .resetBtn:hover {
+  background-color: #f5f5f5;
+}
+
+.charCount {
+  font-size: 14px;
+  color: #6c757d;
+  display: block;
+  margin-top: 8px;
+}

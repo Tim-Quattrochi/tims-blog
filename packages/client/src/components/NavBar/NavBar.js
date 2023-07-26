@@ -39,7 +39,7 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar className="nav">
       <Container>
         <Navbar.Brand
           as={NavLink}

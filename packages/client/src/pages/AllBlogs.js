@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import api from "../utils/api";
-import BlogCard from "../components/BlogCard";
+import BlogCard from "../components/BlogCard/BlogCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const AllBlogs = () => {

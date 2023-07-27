@@ -2,8 +2,7 @@ import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { Card, CardGroup, Container } from "react-bootstrap";
 import formatDate from "../../utils/formatDate";
-import Posts from "../Posts";
-import uuid from "react-uuid";
+import Comment from "../Comment/Comment";
 import "./blogCard.css";
 
 export default function BlogCard({ blog }) {
@@ -43,13 +42,6 @@ export default function BlogCard({ blog }) {
           </Card.Body>
         </Card>
       </CardGroup>
-      {blogId
-        ? blog.posts
-          ? blog.posts.map((post) => (
-              <Posts key={uuid()} blog={post} />
-            ))
-          : ""
-        : ""}
     </Container>
   );
 }

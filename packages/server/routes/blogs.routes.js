@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   createBlog,
-  createBlogPost,
+  createBlogComment,
   deleteBlogPost,
   getAllBlogs,
   getBlogById,
@@ -16,7 +16,7 @@ blogsRouter.route("/").get(getAllBlogs);
 blogsRouter
   .route("/:id")
   .get(requireAuth, getBlogById)
-  .post(requireAuth, createBlogPost)
+  .put(requireAuth, createBlogComment)
   .delete(requireAuth, deleteBlogPost)
   .put(requireAuth, editBlogPost);
 

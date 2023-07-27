@@ -6,6 +6,7 @@ import BlogCard from "../../components/BlogCard/BlogCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import useCreateBlog from "../../hooks/useCreateBlog";
 import EditBlog from "../EditBlog";
+import Comment from "../../components/Comment/Comment";
 import "./blogPage.css";
 
 const BlogPage = () => {
@@ -73,6 +74,11 @@ const BlogPage = () => {
       ) : (
         <LoadingSpinner />
       )}
+
+      {blog &&
+        blog.blogComments.map((comment) => (
+          <Comment key={comment._id} comment={comment} />
+        ))}
     </>
   );
 };

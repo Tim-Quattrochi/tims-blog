@@ -18,22 +18,20 @@ const blogSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    posts: [
+    blogComments: [
       {
-        title: {
+        commentText: {
           type: String,
           required: true,
-          minLength: 5,
-          maxLength: 50,
         },
-        content: {
-          type: String,
-          required: true,
-          minLength: 20,
-        },
-        author: {
+        commentAuthor: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
+          required: [true, "Blog comment must have an author."],
+        },
+        created: {
+          type: Date,
+          default: Date.now,
         },
       },
     ],

@@ -1,13 +1,13 @@
 import { Blog, User } from "../models";
 
-const populateQuery = [
-  { path: "author", select: "name" },
-  {
-    path: "posts",
-    select: ["Name"],
-  },
-];
 export const getAllBlogs = async (req, res) => {
+  const populateQuery = [
+    { path: "author", select: "name" },
+    {
+      path: "blogComments",
+      populate: { path: "commentAuthor", select: "name" },
+    },
+  ];
   const blogs = await Blog.find({})
 
     .sort({ createdAt: "desc" })
@@ -19,6 +19,16 @@ export const getAllBlogs = async (req, res) => {
 export const getBlogById = async (req, res) => {
   const { id } = req.params;
 
+  const populateQuery = [
+    { path: "author", select: "name" },
+    {
+      path: "blogComments",
+      populate: {
+        path: "commentAuthor",
+        select: "name",
+      },
+    },
+  ];
   const blog = await Blog.findById(id).populate(populateQuery);
 
   /* `const blogAuthorId = blog.author?._id.valueOf();` is getting the `_id` value of the author of a
@@ -70,15 +80,27 @@ export const createBlog = async (req, res) => {
   }
 };
 
-export const createBlogPost = async (req, res) => {
+export const createBlogComment = async (req, res) => {
+  const { commentText } = req.body;
+
+  console.log(req.user._id);
+  const comment = {
+    commentText,
+    commentAuthor: req.user._id,
+  };
   try {
     const { id } = req.params;
-    const blog = await Blog.findByIdAndUpdate(id, {
-      $set: { posts: req.body },
-    });
+    const blog = await Blog.findByIdAndUpdate(
+      id,
+      {
+        $push: { blogComments: comment },
+      },
+      { new: true }
+    );
 
     res.json(blog);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error });
   }
 };

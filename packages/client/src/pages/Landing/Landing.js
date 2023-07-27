@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import useGetBlogs from "../../hooks/useGetBlogs";
 import "./landing.css";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import Hero from "../../components/Hero/Hero";
 
 const LandingPage = () => {
@@ -37,25 +38,32 @@ const LandingPage = () => {
         <Container>
           <h2 className="heading">Recent Blog Posts</h2>
           <Row>
-            {blogs &&
+            {blogs ? (
+              blogs &&
               sortByNewest(blogs).map((blog) => (
                 <Col key={blog._id} md={4}>
                   <Card className="mb-4">
                     <Card.Body>
-                      <Card.Title className="preview-title">{blog.title}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">
-                        {blog.author.name}
-                      </Card.Subtitle>
+                      <Card.Title className="preview-title">
+                        {blog.title}
+                      </Card.Title>
+
                       <Card.Text>
                         {truncateText(blog.description, 150)}
                       </Card.Text>
                       <Button as={Link} to={`/blog/${blog._id}`}>
                         Read this blog
                       </Button>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        {blog.author.name}
+                      </Card.Subtitle>
                     </Card.Body>
                   </Card>
                 </Col>
-              ))}
+              ))
+            ) : (
+              <LoadingSpinner />
+            )}
           </Row>
         </Container>
       </section>

@@ -22,7 +22,7 @@ section.recent-posts-section a:hover {
 }
 
 .preview-title {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: #0d1b2a;
   background-color: #f5f5f5;
@@ -31,4 +31,8 @@ section.recent-posts-section a:hover {
   padding: 10px 15px;
   margin: 0;
   text-align: center;
+}
+
+div.mb-2.text-muted.card-subtitle.h6 {
+  text-align: end;
 }

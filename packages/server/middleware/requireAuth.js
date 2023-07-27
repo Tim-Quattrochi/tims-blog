@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models";
+import keys from "../configs/keys";
 
-const JWT_SECRET = process.env.JWT_SECRET;
+
 
 export default async function requireAuth(req, res, next) {
   let token;
@@ -15,7 +16,7 @@ export default async function requireAuth(req, res, next) {
       token = req.headers.authorization.split(" ")[1];
 
       //verify token
-      const decoded = jwt.verify(token, JWT_SECRET);
+      const decoded = jwt.verify(token, keys.jwt.secret);
 
       //get user from token
       req.user = await User.findById(decoded.sub).select(

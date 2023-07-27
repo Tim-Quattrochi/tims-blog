@@ -9,19 +9,17 @@ import apiRouter from "./routes";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 
-const DB_URL = process.env.DB_URL;
-const API_URL = keys.api.url;
-const PORT = process.env.PORT;
-
 mongoose
-  .connect(DB_URL, {
+  .connect(keys.db.connString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("[Database] Connection Established."))
+  .then(() =>
+    console.log("[Database] Connection Established.".bgBlue)
+  )
   .catch((err) =>
     console.log(
-      "[Database] An error occurred connecting to the db: ",
+      "[Database] An error occurred connecting to the db: ".bgRed,
       err
     )
   );
@@ -35,8 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(API_URL, apiRouter);
+app.use(keys.api.url, apiRouter);
 
-app.listen(PORT, () =>
-  console.log(`[Server] Listening on port ${PORT}`.bgMagenta)
+app.listen(keys.api.port, () =>
+  console.log(`[Server] Listening on port ${keys.api.port}`.bgMagenta)
 );

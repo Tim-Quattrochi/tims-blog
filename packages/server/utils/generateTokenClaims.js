@@ -1,12 +1,11 @@
-export default function generateTokenClaims(user) {
-  const expDate = new Date();
-  expDate.setDate(expDate.getDate() + 7);
+import keys from "../configs/keys";
 
+export default function generateTokenClaims(user) {
   const issueDate = new Date();
 
   return {
     sub: user._id,
-    exp: expDate.getTime(),
+    exp: keys.jwt.expiresIn,
     iat: issueDate.getTime(),
   };
 }

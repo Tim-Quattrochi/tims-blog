@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import keys from "../configs/keys";
 import { generateTokenClaims } from "../utils";
 
-const JWT_SECRET = process.env.JWT_SECRET;
+
 
 export const signUp = async (req, res) => {
   try {
@@ -37,7 +37,7 @@ export const signUp = async (req, res) => {
 
     const claims = generateTokenClaims(newUser);
 
-    const token = jwt.sign(claims, JWT_SECRET);
+    const token = jwt.sign(claims, keys.jwt.secret);
 
     res.cookie("blogUser", token, {
       httpOnly: true,
@@ -82,7 +82,7 @@ export const signIn = async (req, res) => {
 
     const claims = generateTokenClaims(existingUser);
 
-    const token = jwt.sign(claims, JWT_SECRET);
+    const token = jwt.sign(claims, keys.jwt.secret);
 
     res.cookie("blogUser", token, {
       httpOnly: true,

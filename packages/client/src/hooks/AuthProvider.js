@@ -52,6 +52,7 @@ export const useAuth = () => {
 
 export function useProvideAuth() {
   const { state, dispatch } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   let navigate = useNavigate();
 
   const signIn = async (email, password) => {
@@ -127,6 +128,7 @@ export function useProvideAuth() {
         type: "LOGOUT",
       });
     }
+    setIsLoading(false);
   }, [dispatch]);
 
   return {
@@ -135,6 +137,7 @@ export function useProvideAuth() {
     signIn,
     signOut,
     signUp,
+    isLoading,
   };
 }
 

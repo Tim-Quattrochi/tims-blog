@@ -1,0 +1,37 @@
+.comment-body-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-card {
+  max-width: 400px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0d1b2a;
+}
+
+p.comment-text {
+  font-size: 16px;
+  color: #0d1b2a;
+  margin-bottom: 15px;
+}
+
+.comment-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-info {
+  font-size: 14px;
+  color: #6c757d;
+}

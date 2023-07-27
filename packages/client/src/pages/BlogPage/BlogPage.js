@@ -44,31 +44,32 @@ const BlogPage = () => {
             </Button>
           </Col>
 
-          {isCreator ? (
-            <div className="text-center btn-container">
-              <Button
-                className="delete"
-                onClick={(e) => {
-                  deleteBlog(e, blogId);
-                }}
-              >
-                Delete
-              </Button>
-              <Button onClick={handleClick} className="edit">
-                Edit
-              </Button>
-
-              {isEdit && (
-                <EditBlog
-                  id={blogId}
-                  blog={blog}
-                  setIsEdit={setIsEdit}
-                  setBlog={setBlog}
-                />
-              )}
-            </div>
-          ) : (
-            ""
+          {isCreator && (
+            <>
+              <div className="text-center btn-container">
+                <Button
+                  className="delete"
+                  onClick={(e) => {
+                    deleteBlog(e, blogId);
+                  }}
+                >
+                  Delete
+                </Button>
+                <Button onClick={handleClick} className="edit">
+                  Edit
+                </Button>
+              </div>
+              <div>
+                {isEdit && (
+                  <EditBlog
+                    id={blogId}
+                    blog={blog}
+                    setIsEdit={setIsEdit}
+                    setBlog={setBlog}
+                  />
+                )}
+              </div>
+            </>
           )}
         </Container>
       ) : (

@@ -4,7 +4,8 @@
 
 .heading {
   text-align: start;
-  margin-bottom: 5px;
+  margin: 10px;
+  color: #006d77;
 }
 
 section.recent-posts-section a {
@@ -18,4 +19,16 @@ section.recent-posts-section a {
 
 section.recent-posts-section a:hover {
   background-color: #7fad7b;
+}
+
+.preview-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0d1b2a;
+  background-color: #f5f5f5;
+  border: 2px solid #9bc995;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 0;
+  text-align: center;
 }

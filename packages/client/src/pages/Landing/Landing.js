@@ -42,7 +42,7 @@ const LandingPage = () => {
                 <Col key={blog._id} md={4}>
                   <Card className="mb-4">
                     <Card.Body>
-                      <Card.Title>{blog.title}</Card.Title>
+                      <Card.Title className="preview-title">{blog.title}</Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">
                         {blog.author.name}
                       </Card.Subtitle>

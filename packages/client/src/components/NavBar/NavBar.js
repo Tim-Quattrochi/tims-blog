@@ -42,6 +42,15 @@ const NavBar = () => {
           >
             All Blogs
           </Nav.Link>
+          {isAuthenticated && (
+            <Nav.Link
+              as={NavLink}
+              to="/profile"
+              style={getActiveLinkStyle("/profile")}
+            >
+              Profile
+            </Nav.Link>
+          )}
           {isAuthenticated ? (
             <Nav.Link
               as={NavLink}

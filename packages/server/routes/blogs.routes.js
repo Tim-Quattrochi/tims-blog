@@ -6,10 +6,13 @@ import {
   getAllBlogs,
   getBlogById,
   editBlogPost,
+  getBlogsByUser,
 } from "../controllers/blog.controller";
 import { requireAuth } from "../middleware";
 
 const blogsRouter = Router();
+
+blogsRouter.route("/my-blogs").get(requireAuth, getBlogsByUser);
 
 blogsRouter.route("/").get(getAllBlogs);
 
@@ -20,6 +23,6 @@ blogsRouter
   .delete(requireAuth, deleteBlogPost)
   .put(requireAuth, editBlogPost);
 
-blogsRouter.route("/create/:id").post(requireAuth, createBlog); //using this one to create a blog
+blogsRouter.route("/create/:id").post(requireAuth, createBlog);
 
 export default blogsRouter;

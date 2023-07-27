@@ -81,9 +81,8 @@ export const createBlog = async (req, res) => {
 };
 
 export const createBlogComment = async (req, res) => {
-  const { commentText } = req.body;
+  const { description: commentText } = req.body;
 
-  console.log(req.user._id);
   const comment = {
     commentText,
     commentAuthor: req.user._id,
@@ -153,5 +152,31 @@ export const editBlogPost = async (req, res) => {
     res.status(200).json(blog);
   } catch (error) {
     res.status(500).json({ error: error });
+  }
+};
+
+export const getBlogsByUser = async (req, res) => {
+  const userId = req.user?.id?.toString();
+
+  const checkIsCreator = async (blogs, userId) => {
+    const result = await blogs.map((blog) => {
+      const isCreator = userId === blog?.author?._id.valueOf();
+      return { ...blog, isCreator };
+    });
+    return result;
+  };
+  try {
+    const findBlogs = await Blog.find({
+      author: req.user._id,
+    })
+      .populate({ path: "author", select: "name" })
+      .lean();
+
+const blogs = await checkIsCreator(findBlogs, userId)
+
+    res.status(200).json(blogs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server Error." });
   }
 };

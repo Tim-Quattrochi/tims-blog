@@ -12,6 +12,7 @@ import SignInPage from "./pages/SignInPage";
 import LandingPage from "./pages/Landing/Landing";
 import Footer from "./components/Footer/Footer";
 import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
 
         <Route path="/blog/:blogId" element={<PrivateRoute />}>
           <Route path="/blog/:blogId" element={<BlogPage />} />
+        </Route>
+        <Route path="/profile" element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
         </Route>
         {/* End Private Routes */}
       </Routes>

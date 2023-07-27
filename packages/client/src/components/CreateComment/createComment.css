@@ -1,0 +1,30 @@
+
+.modal-header {
+  background-color: #9bc995;
+  color: #ffffff;
+}
+
+.modal-body {
+  background-color: #ffffff;
+  color: #0d1b2a;
+}
+
+.modal-footer {
+  background-color: #f5f5f5;
+}
+
+.textarea.form-control {
+  border-color: #dddddd;
+}
+
+.btn-accent {
+  background-color: #9bc995;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-clear {
+  background-color: #1a237e;
+  color: #ffffff;
+  border: none;
+}

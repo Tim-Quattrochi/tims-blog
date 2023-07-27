@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { Card, CardGroup, Container } from "react-bootstrap";
 import formatDate from "../../utils/formatDate";
-import Comment from "../Comment/Comment";
 import "./blogCard.css";
 
 export default function BlogCard({ blog }) {

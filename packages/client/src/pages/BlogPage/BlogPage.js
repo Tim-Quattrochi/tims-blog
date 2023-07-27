@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import useCreateBlog from "../../hooks/useCreateBlog";
 import EditBlog from "../EditBlog";
 import Comment from "../../components/Comment/Comment";
+import CreateComment from "../../components/CreateComment/CreateComment";
 import "./blogPage.css";
 
 const BlogPage = () => {
@@ -38,6 +39,13 @@ const BlogPage = () => {
       {blog ? (
         <Container className="blog-page-container">
           <BlogCard blog={blog}> </BlogCard>
+
+          {!isCreator && (
+            <Col>
+              <CreateComment blogId={blogId} />
+            </Col>
+          )}
+
           <Col as="span" className="back-btn-container">
             <Button onClick={() => navigate(-1)} className="back">
               Go Back

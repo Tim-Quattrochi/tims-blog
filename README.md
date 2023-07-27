@@ -2,7 +2,7 @@
 
 This Blog app lets users register, create, read, edit, and delete blog posts.
 
-![picture of the landing](/current-look.png)
+![picture of the landing](/current-look2.png)
 
 ### Table of Contents
 
@@ -77,6 +77,7 @@ This will start your `client` on `http://localhost:3000/` and backend in develop
 ## Features
 
 - Login and Register.
+- User Profile
 - Authentication using JSON web tokens.
 - Create, Read, Update, and delete blogs.
 - Protected client side routes.

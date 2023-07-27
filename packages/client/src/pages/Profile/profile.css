@@ -1,0 +1,40 @@
+.profile-page {
+  margin-top: 20px;
+}
+
+.blog-card {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.edit-button {
+  background-color: #4f7cac;
+  color: #ffffff;
+  margin-top: 5px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.edit-button:hover {
+  background-color: #0d1b2a;
+}
+
+.my-masonry-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* justify-content: space-between; */
+  margin-left: -30px;
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px;
+  background-clip: padding-box;
+}
+
+.my-masonry-grid_column > div {
+  background: #f0ffec;
+  margin-bottom: 20px;
+}

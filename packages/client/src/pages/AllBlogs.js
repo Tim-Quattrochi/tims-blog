@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import api from "../utils/api";
 import BlogCard from "../components/BlogCard/BlogCard";
+import useGetBlogs from "../hooks/useGetBlogs";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const AllBlogs = () => {
-  const [blogs, setBlogs] = useState();
-
-  useEffect(() => {
-    api
-      .get(`/blogs`)
-      .then((response) => setBlogs(response))
-      .catch((err) => console.log(err));
-  }, []);
+  const { blogs } = useGetBlogs();
 
   return (
     <>
       {blogs ? (
-        <Container>
+        <div>
           {blogs.map((blog) => (
             <BlogCard blog={blog} key={blog._id} />
           ))}
-        </Container>
+        </div>
       ) : (
         <LoadingSpinner />
       )}

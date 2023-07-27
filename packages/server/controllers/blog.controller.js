@@ -1,13 +1,13 @@
 import { Blog, User } from "../models";
 
+const populateQuery = [
+  { path: "author", select: "name" },
+  {
+    path: "posts",
+    select: ["Name"],
+  },
+];
 export const getAllBlogs = async (req, res) => {
-  const populateQuery = [
-    { path: "author", select: "name" },
-    {
-      path: "posts",
-      select: ["Name"],
-    },
-  ];
   const blogs = await Blog.find({})
 
     .sort({ createdAt: "desc" })
@@ -17,10 +17,6 @@ export const getAllBlogs = async (req, res) => {
 };
 
 export const getBlogById = async (req, res) => {
-  const populateQuery = [
-    { path: "author", select: "name" },
-    { path: "posts", select: ["name"] },
-  ];
   const { id } = req.params;
 
   const blog = await Blog.findById(id).populate(populateQuery);
@@ -41,14 +37,6 @@ export const getBlogById = async (req, res) => {
 export const createBlog = async (req, res) => {
   try {
     const { title, description } = req.body;
-
-    const populateQuery = [
-      { path: "author", select: "name" },
-      {
-        path: "posts",
-        select: ["Name"],
-      },
-    ];
 
     const user = await User.findById(req.user.id);
 
@@ -139,13 +127,6 @@ export const editBlogPost = async (req, res) => {
 
     await blog.save();
     blog = blog.toJSON();
-    // const updatedBlog = await Blog.findByIdAndUpdate(
-    //   id,
-    //   {
-    //     $set: req.body,
-    //   },
-    //   { new: true }
-    // );
 
     res.status(200).json(blog);
   } catch (error) {

@@ -17,7 +17,6 @@ const reducer = (state, action) => {
     case "HANDLE_CHANGE":
       const { name, value } = action.payload;
       return { ...newState, [name]: value };
-
     case "HANDLE_RESET":
       return initialState;
     case "SET_IS_SUBMITTING":
@@ -30,12 +29,6 @@ const reducer = (state, action) => {
       return newState;
     case "HANDLE_RESET_DRAFT":
       return initialState;
-    case "DELETE_BLOG":
-      newState.isSubmitting = action.payload;
-      return newState;
-    case "EDIT_BLOG":
-      newState[action.payload.name] = action.payload.value;
-      return newState;
     default:
       return newState;
   }
@@ -70,21 +63,22 @@ const useCreateBlog = () => {
     localStorage.setItem("blog_post_progress", JSON.stringify(state));
   };
 
+  const handleSetIsSubmitting = (value) => {
+    dispatch({
+      type: "SET_IS_SUBMITTING",
+      payload: value,
+    });
+  };
+
   const handleSubmitBlog = (e) => {
     const userId = auth.state.user.uid;
 
     e.preventDefault();
-    dispatch({
-      type: "SET_IS_SUBMITTING",
-      payload: true,
-    });
+    handleSetIsSubmitting(true);
     const form = e.currentTarget;
 
     if (form.checkValidity() === false) {
-      dispatch({
-        type: "SET_IS_SUBMITTING",
-        payload: false,
-      });
+      handleSetIsSubmitting(false);
     }
 
     const { title, description } = state;
@@ -102,10 +96,7 @@ const useCreateBlog = () => {
 
   const deleteBlog = (e, id) => {
     e.preventDefault();
-    dispatch({
-      type: "SET_IS_SUBMITTING",
-      payload: true,
-    });
+    handleSetIsSubmitting(true);
 
     const { title, description } = state;
 
@@ -113,11 +104,37 @@ const useCreateBlog = () => {
       .delete(`/blogs/${id}`, { title, description })
       .then((response) => {
         toast.success("Blog post deleted successfully.");
-
+        handleSetIsSubmitting(false);
         reset();
         navigate(`/blogs/`);
       })
       .catch((err) => {
+        console.log(err);
+        handleSetIsSubmitting(false);
+
+        toast.error(err.response.data.error || err.message);
+      });
+  };
+
+  const submitComment = (e, id) => {
+    console.log(e);
+    e.preventDefault();
+    handleSetIsSubmitting(true);
+
+    const { description } = state;
+
+    api
+      .put(`/blogs/${id}`, { description })
+      .then((response) => {
+        console.log(response);
+        handleSetIsSubmitting(false);
+        toast.success("Comment submitted successfully.");
+
+        reset();
+        navigate(`/blog/${id}`);
+      })
+      .catch((err) => {
+        handleSetIsSubmitting(false);
         console.log(err);
         toast.error(err.response.data.error || err.message);
       });
@@ -127,17 +144,14 @@ const useCreateBlog = () => {
 
   const editBlog = async (e, id) => {
     e.preventDefault();
-    dispatch({
-      type: "SET_IS_SUBMITTING",
-      payload: true,
-    });
-
+    handleSetIsSubmitting(true);
     try {
       await api.put(`/blogs/${id}`, { title, description });
       toast.success("Blog edited Successfully.");
       reset();
       navigate(`/blog/${id}`);
     } catch (err) {
+      handleSetIsSubmitting(false);
       toast.error(err.response.data.error || err.message);
     }
   };
@@ -152,6 +166,7 @@ const useCreateBlog = () => {
     state,
     handleChange,
     handleSubmitBlog,
+    submitComment,
     reset,
     saveProgress,
     deleteBlog,

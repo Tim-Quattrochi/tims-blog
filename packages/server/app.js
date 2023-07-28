@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(keys.api.url, apiRouter);
 
-if (process.env === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
   app.all("*", (req, res, next) => {
     res.sendFile(

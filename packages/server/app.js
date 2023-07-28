@@ -35,6 +35,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(keys.api.url, apiRouter);
 
+if (process.env === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.all("*", (req, res, next) => {
+    res.sendFile(
+      path.resolve(__dirname, "../client/build/index.html")
+    );
+  });
+}
+
 app.listen(keys.api.port, () =>
   console.log(`[Server] Listening on port ${keys.api.port}`.bgMagenta)
 );

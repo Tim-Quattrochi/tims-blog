@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node app.js",
+    "start": "babel-node app.js",
     "build": "babel-node app.js"
   },
   "keywords": [],

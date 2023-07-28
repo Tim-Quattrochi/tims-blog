@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import { User } from "../models";
 import keys from "../configs/keys";
 
-
-
 export default async function requireAuth(req, res, next) {
   let token;
 
@@ -25,7 +23,6 @@ export default async function requireAuth(req, res, next) {
 
       next();
     } catch (error) {
-      console.log(error);
       res.status(401).json({ error: "Not authorized" });
     }
   }

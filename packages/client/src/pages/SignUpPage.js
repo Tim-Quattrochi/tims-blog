@@ -66,7 +66,7 @@ const SignUpPage = () => {
       localStorage.setItem("blogUser", JSON.stringify(res.user));
       navigate("/blogs");
     } catch (error) {
-      console.log(error);
+     
       setData({
         ...data,
         loading: false,

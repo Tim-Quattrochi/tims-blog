@@ -75,7 +75,7 @@ export const createBlog = async (req, res) => {
 
     res.json(newBlog);
   } catch (error) {
-    console.log(error);
+   
     res.status(500).json({ error: error });
   }
 };
@@ -176,7 +176,7 @@ const blogs = await checkIsCreator(findBlogs, userId)
 
     res.status(200).json(blogs);
   } catch (error) {
-    console.log(error);
+    
     res.status(500).json({ error: "Server Error." });
   }
 };

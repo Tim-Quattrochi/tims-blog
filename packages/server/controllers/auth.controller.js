@@ -48,7 +48,7 @@ export const signUp = async (req, res) => {
 
     res.json({ token, user: { uid: newUser._id, email, name } });
   } catch (error) {
-    console.log(error);
+   
     res.status(500).json({ error: "Something went wrong." });
   }
 };

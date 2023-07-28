@@ -109,7 +109,6 @@ const useCreateBlog = () => {
         navigate(`/blogs/`);
       })
       .catch((err) => {
-        console.log(err);
         handleSetIsSubmitting(false);
 
         toast.error(err.response.data.error || err.message);
@@ -117,7 +116,6 @@ const useCreateBlog = () => {
   };
 
   const submitComment = (e, id) => {
-    console.log(e);
     e.preventDefault();
     handleSetIsSubmitting(true);
 
@@ -126,7 +124,6 @@ const useCreateBlog = () => {
     api
       .put(`/blogs/${id}`, { description })
       .then((response) => {
-        console.log(response);
         handleSetIsSubmitting(false);
         toast.success("Comment submitted successfully.");
 
@@ -135,7 +132,7 @@ const useCreateBlog = () => {
       })
       .catch((err) => {
         handleSetIsSubmitting(false);
-        console.log(err);
+
         toast.error(err.response.data.error || err.message);
       });
   };

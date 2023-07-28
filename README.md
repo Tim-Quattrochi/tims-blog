@@ -1,6 +1,6 @@
 # Blog Talk
 
-This Blog app lets users register, create, read, edit, and delete blog posts.
+This Blog app lets users register, create, read, edit, and delete blog posts. This App was deployed manually to an AWS EC2 instance using the Ubuntu command line and setting up a proxy pass with NGINX to forward requests to the backend server, and using pm2 to keep it running. [Link to deployed site]
 
 ![picture of the landing](/current-look2.png)
 
@@ -127,3 +127,4 @@ I welcome contributions. Simply fork the repository and open a pull request and 
 [concurrently]: https://www.npmjs.com/package/concurrently
 [http://54.90.137.205/]: http://54.90.137.205/
 [Workspaces]: https://docs.npmjs.com/cli/v8/using-npm/workspaces
+[Link to deployed site]: http://3.89.98.155/

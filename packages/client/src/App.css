@@ -2,10 +2,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  font-family: "Roboto", "Arial", sans-serif;
+
+  --headerColor: #1a1a1a;
+  --bodyTextColor: #4e4b66;
+  --bodyTextColorWhite: #fafbfc;
+  /* 13px - 16px */
+  --topperFontSize: clamp(0.8125rem, 1.6vw, 1rem);
+  /* 31px - 49px */
+  --headerFontSize: clamp(1.9375rem, 3.9vw, 3.0625rem);
+  --bodyFontSize: 1rem;
+  /* 60px - 100px top and bottom */
+  --sectionPadding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
 }
 
 body {
-  margin: 0;
   background-color: #f5fffa !important;
   font-family: "Open Sans", sans-serif;
   min-height: 100vh;
@@ -51,9 +63,4 @@ body {
 a {
   text-decoration: none;
   color: #172b4d;
-}
-
-/* wrap the app to keep footer from blocking content */
-.wrapper {
-  padding-bottom: 60px;
 }

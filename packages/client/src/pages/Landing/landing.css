@@ -8,19 +8,6 @@
   color: #006d77;
 }
 
-section.recent-posts-section a {
-  background-color: #9bc995;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: #ffffff;
-}
-
-section.recent-posts-section a:hover {
-  background-color: #7fad7b;
-}
-
 .preview-title {
   font-size: 15px;
   font-weight: bold;

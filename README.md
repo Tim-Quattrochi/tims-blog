@@ -2,7 +2,7 @@
 
 This Blog app lets users register, create, read, edit, and delete blog posts. This App was deployed manually to an AWS EC2 instance using the Ubuntu command line and setting up a proxy pass with NGINX to forward requests to the backend server, and using pm2 to keep it running. [Link to deployed site]
 
-![picture of the landing](/current-look2.png)
+![picture of the landing](/current-look3.png)
 
 ### Table of Contents
 

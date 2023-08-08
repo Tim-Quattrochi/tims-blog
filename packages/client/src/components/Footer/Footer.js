@@ -1,32 +1,31 @@
 import React from "react";
 import "./footer.css";
 import gitHubSvg from "../../assets/github-mark.svg";
-import { Container } from "react-bootstrap";
 
 const Footer = () => {
   return (
-    <footer
-      className="footer"
-      style={{
-        backgroundColor: "#0D1B2A",
-        color: "#F0FFF4",
-        padding: "20px 0",
-      }}
-    >
-      <Container>
-        <p className="footer-text">
-          © {new Date().getFullYear()} Blog Talk
-        </p>
-      </Container>
-      <div className="icon-wrapper">
-        <a
-          href="https://github.com/Tim-Quattrochi"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="github-link"
-        >
-          <img src={gitHubSvg} alt="GitHub" className="github-icon" />
-        </a>
+    <footer id="cs-footer-107">
+      <div className="cs-container">
+        <ul className="cs-ul">
+          <li className="cs-li cs-copyright">
+            © 2023 Copyright Tim Quattrochi
+          </li>
+          <li className="cs-li">
+            <a
+              href="https://github.com/Tim-Quattrochi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="github-link"
+            >
+              <img
+                width={"34px"}
+                src={gitHubSvg}
+                alt="GitHub"
+                className="github-icon"
+              />
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

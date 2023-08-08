@@ -39,7 +39,7 @@ const EditBlog = ({ id, blog, setIsEdit, setBlog }) => {
 
   return (
     <Container>
-      <h1>Edit your blog post</h1>
+      <h2>Edit your blog post</h2>
       <Form
         onSubmit={(e) => {
           editBlog(e, id);

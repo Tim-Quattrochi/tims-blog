@@ -1,3 +1,7 @@
 .nav {
   background-color: #778899;
 }
+
+.navbar-expand {
+  flex-wrap: wrap;
+}
